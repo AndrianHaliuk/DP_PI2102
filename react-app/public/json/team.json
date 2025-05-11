@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Leonard John Davies",
+    "role": "Cofounder, CEO",
+    "photo": "img/Image.webp",
+    "social": {
+      "facebook": "#",
+      "twitter": "#",
+      "linkedin": "#"
+    }
+  },
+  {
+    "name": "Francis Weber",
+    "role": "Vice Chairman",
+    "photo": "img/Image-4.webp",
+    "social": {
+      "facebook": "#",
+      "twitter": "#",
+      "linkedin": "#"
+    }
+  },
+  {
+    "name": "Kyla Obrien",
+    "role": "Head of Authority",
+    "photo": "img/Image-3.webp",
+    "social": {
+      "facebook": "#",
+      "twitter": "#",
+      "linkedin": "#"
+    }
+  },
+  {
+    "name": "Adrian Dixon",
+    "role": "Support Executive",
+    "photo": "img/Image-6.webp",
+    "social": {
+      "facebook": "#",
+      "twitter": "#",
+      "linkedin": "#"
+    }
+  },
+  {
+    "name": "Freddy Busby",
+    "role": "Project Manager",
+    "photo": "img/Image-1.webp",
+    "social": {
+      "facebook": "#",
+      "twitter": "#",
+      "linkedin": "#"
+    }
+  },
+  {
+    "name": "Dale Banks",
+    "role": "Accountatnt, Finance",
+    "photo": "img/Image-2.webp",
+    "social": {
+      "facebook": "#",
+      "twitter": "#",
+      "linkedin": "#"
+    }
+  },
+  {
+    "name": "Miriam Middleton",
+    "role": "Cofounder, CEO",
+    "photo": "img/Image-5.webp",
+    "social": {
+      "facebook": "#",
+      "twitter": "#",
+      "linkedin": "#"
+    }
+  },
+  {
+    "name": "Ellen Walton",
+    "role": "Vice Chairman",
+    "photo": "img/Image-7.webp",
+    "social": {
+      "facebook": "#",
+      "twitter": "#",
+      "linkedin": "#"
+    }
+  }
+]
