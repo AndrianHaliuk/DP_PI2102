@@ -3,16 +3,16 @@ import React from 'react';
 const Projects: React.FC = () => {
   const projects = [
     {
-      title: 'Місія "Посмішка 1тис.: Благодійність назовні"',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros.',
+      title: 'Місія "Посмішка 1000: Благодійність у дії"',
+      description: 'Наш проєкт об’єднує волонтерів і спонсорів, щоб подарувати 1000 дітям з особливими потребами радість через подарунки, розваги та турботу.',
     },
     {
-      title: 'Щотижневі екскурсії',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros.',
+      title: 'Щотижневі освітні екскурсії',
+      description: 'Ми організовуємо інтерактивні екскурсії до музеїв, театрів та на природу, що сприяють розвитку та соціалізації дітей з особливими потребами.',
     },
     {
       title: 'Щомісячна громадська просвіта',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros.',
+      description: 'Ми проводимо відкриті зустрічі для батьків, педагогів і громадськості, щоб розвивати інклюзію та розуміння потреб особливих дітей.',
     }
   ];
 

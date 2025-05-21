@@ -1,9 +1,9 @@
 import {
   Controller,
   Post,
-  Headers,
   Req,
   Res,
+  Headers,
   BadRequestException,
   Logger,
 } from '@nestjs/common';
@@ -14,54 +14,62 @@ import { DonationsService } from '../donations/donations.service';
 
 @Controller('webhook')
 export class WebhookController {
+  private stripe: Stripe;
   private readonly logger = new Logger(WebhookController.name);
-  private readonly stripe: Stripe;
 
   constructor(
-    private readonly config: ConfigService,
-    private readonly donationsService: DonationsService,
+    private config: ConfigService,
+    private donationsService: DonationsService,
   ) {
-    const secretKey = this.config.get<string>('STRIPE_SECRET_KEY');
-    if (!secretKey) throw new Error('STRIPE_SECRET_KEY not set');
-    this.stripe = new Stripe(secretKey, { apiVersion: '2025-04-30.basil' });
+    const key = this.config.get<string>('STRIPE_SECRET_KEY');
+    this.stripe = new Stripe(key!, { apiVersion: '2025-04-30.basil' });
   }
 
   @Post()
   async handleStripeEvent(
     @Req() req: Request,
     @Res() res: Response,
-    @Headers('stripe-signature') sig: string,
+    @Headers('stripe-signature') signature: string,
   ) {
     const webhookSecret = this.config.get<string>('STRIPE_WEBHOOK_SECRET');
-    if (!webhookSecret) throw new Error('STRIPE_WEBHOOK_SECRET not set');
-
-    const rawBody = req.body as Buffer;
-
     let event: Stripe.Event;
+
     try {
-      event = this.stripe.webhooks.constructEvent(rawBody, sig, webhookSecret);
-      this.logger.log(`Verified event: ${event.type}`);
+      event = this.stripe.webhooks.constructEvent(
+        req.body,
+        signature,
+        webhookSecret!,
+      );
     } catch (err) {
-      this.logger.error('Webhook signature verification failed', err as any);
-      throw new BadRequestException(`Webhook Error: ${(err as Error).message}`);
+      this.logger.error('Webhook signature failed', err);
+      throw new BadRequestException('Invalid signature');
     }
 
     if (event.type === 'payment_intent.succeeded') {
       const intent = event.data.object as Stripe.PaymentIntent;
-      this.logger.log(`PaymentIntent succeeded: ${intent.id}`);
+      const md = intent.metadata;
+      const campaignId  = parseInt(md.campaignId  || '0', 10);
+      const userId      = parseInt(md.userId      || '0', 10);
+      const isAnonymous = md.isAnonymous === 'true';
+      const amount      = intent.amount_received / 100;
 
-      const donationId = parseInt(intent.metadata?.donationId || '0', 10);
-      if (!donationId) return res.status(400).send('Missing donationId');
-
-      try {
-        await this.donationsService.confirmDonation(donationId, intent.id);
-        this.logger.log(`Donation ${donationId} confirmed`);
-      } catch (error) {
-        this.logger.error('Error confirming donation', error as any);
-        return res.status(500).send('Internal Server Error');
+      if (!campaignId || !userId) {
+        this.logger.warn('Missing metadata on intent');
+        return res.status(400).send('Missing metadata');
       }
+
+      // 1) створюємо Donation
+      const donation = await this.donationsService.donate(
+        { campaignId, amount, isAnonymous },
+        userId,
+      );
+
+      // 2) підтверджуємо та оновлюємо кампанію
+      await this.donationsService.confirmDonation(donation.id, intent.id);
+
+      this.logger.log(`Donation ${donation.id} created & confirmed`);
     }
 
-    return res.status(200).send('Received');
+    return res.status(200).send('OK');
   }
 }

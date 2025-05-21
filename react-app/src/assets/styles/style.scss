@@ -147,6 +147,7 @@ body::-webkit-scrollbar {
   padding: 12px 24px;
   border-radius: 4px;
   transition: transform 0.2s ease;
+  border: none;
   &:hover{
     transform: scale(1.1);
   }
@@ -207,9 +208,9 @@ header{
   border-radius: 4px;
   padding: 12px 24px;
   border: 0;
-  transition: box-shadow 0.3s ease;
+  transition: transform 0.2s ease;
   &:hover{
-    box-shadow: inset 0px 3px 6px rgba(0, 0, 0, 0.5);
+    transform: scale(1.1);
   }
 }
 
@@ -275,11 +276,10 @@ h2{
   color: #000000;
   text-align: center;
   font-weight: 500;
-  transition: box-shadow 0.3s ease;
+  transition: transform 0.2s ease;
   border: 0;
   &:hover{
-    box-shadow: inset 0px 3px 6px rgba(0, 0, 0, 0.5);
-    background-color: #ebc643;
+    transform: scale(1.1);
   }
 }
 
@@ -1476,46 +1476,6 @@ button {
   margin: 12px auto;
 }
 
-.campaign-list 
-{ display: grid; 
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-  gap: 24px; 
-  padding: 24px;
-  margin-top: 80px; }
-
-.campaign-card 
-{ background: #fff; 
-  border-radius: 8px; 
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
-  overflow: hidden; display: flex; 
-  flex-direction: column; }
-
-.campaign-card__header 
-{ padding: 16px; 
-  font-size: 1.25rem; 
-  font-weight: 600; }
-
-.campaign-card__body 
-{ flex: 1; 
-  padding: 0 16px 16px; }
-
-.progress-bar 
-{ background: #e5e7eb; 
-  height: 8px; 
-  border-radius: 4px; 
-  overflow: hidden; }
-
-.progress-fill 
-{ background: #f2c94c; 
-  height: 100%; 
-  transition: width 0.3s ease; }
-
-.campaign-card__footer 
-{ padding: 16px; 
-  display: flex; 
-  justify-content: space-between; 
-  align-items: center; }
-
 .donate-form 
 { max-width: 400px; 
   margin: 0 auto; 
@@ -1545,23 +1505,7 @@ button {
   margin-top: 12px; 
 }
 
-.create-campaign-page {
-  padding-top: 80px;
-  min-height: 100vh;
-  background: #f3f4f6;
-}
-.create-campaign-form {
-  max-width: 600px;
-  margin: 0 auto;
-  background: #fff;
-  padding: 32px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-.create-campaign-form label {
-  display: block;
-  margin-bottom: 16px;
-}
+
 .create-campaign-form input,
 .create-campaign-form textarea {
   width: 100%;
@@ -1634,6 +1578,105 @@ button {
           padding: 0.75rem 0;
           border-bottom: 1px solid #ccc;
         }
+
+
+.navbar-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 1px 2px #1D2130;
+  transition: transform 0.2s ease;
+  &:hover{
+    transform: scale(1.1);
+  }
+}
+
+.top-donors-carousel{
+  overflow: hidden;
+}
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 70%;
+  padding: 0.5rem 0;
+  position: relative;
+}
+
+.marquee-content {
+  display: inline-flex;
+  white-space: nowrap;
+  animation-name: marqueeAnim;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-play-state: running;
+}
+
+.marquee-text {
+  padding: 0 1rem;
+  color: #1f2937;
+  font-size: 0.875rem; 
+}
+
+.campaign-status{
+  padding-right: 24px;
+  font-size: larger;
+}
+
+@keyframes marqueeAnim {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.thank-you-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* затемнення всього екрану */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  z-index: 1000;
+}
+
+.thank-you-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.thank-you-content {
+  text-align: center;
+  animation: popIn 0.3s ease;
+}
+
+.heart {
+  font-size: 4rem;
+  animation: pulse 1.2s infinite;
+}
+
+.message {
+  margin-top: 1rem;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: white;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
 @media screen and (min-width: 768px) {
   
   .modal-content h2 {

@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
+import { IsString, IsNotEmpty, IsNumber, IsOptional, Min, Max } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class CreateCampaignDto {
@@ -16,6 +16,8 @@ export class CreateCampaignDto {
 
   @Type(() => Number)
   @IsNumber()
+  @Min(1)
+  @Max(3)
   @IsOptional()
   priority?: number;
 

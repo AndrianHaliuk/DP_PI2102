@@ -1,3 +1,4 @@
+// src/stripe/stripe.service.ts
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import Stripe from 'stripe';
@@ -24,44 +25,31 @@ export class StripeService {
     userId: number,
     campaignId: number,
     isAnonymous = false,
-    currency = 'uah',   
-  ) {
-    if (amount <= 0) throw new BadRequestException('Amount must be positive');
+    currency = 'uah',
+  ): Promise<{ clientSecret: string }> {
+    if (amount <= 0) {
+      throw new BadRequestException('Amount must be positive');
+    }
 
-    const donation = await this.prisma.donation.create({
-      data: { amount, userId, campaignId, isAnonymous },
-    });
-
+    // Переконаємося, що користувач дійсно має акаунт у Stripe
     const bankAccount = await this.prisma.bankAccount.findFirst({
       where: { userId, provider: 'Stripe', isDefault: true },
     });
-    if (!bankAccount)
+    if (!bankAccount) {
       throw new BadRequestException('No default Stripe account');
+    }
 
-    const transaction = await this.prisma.transaction.create({
-      data: {
-        donationId: donation.id,
-        bankAccountId: bankAccount.id,
-        providerTxId: 'pending',
-        status: 'pending',
-        amount,
-      },
-    });
-
+    // Створюємо PaymentIntent із усім необхідним у metadata
     const intent = await this.stripe.paymentIntents.create({
-      amount: Math.round(amount * 100),
+      amount: Math.round(amount * 100), // у копійках
       currency,
       metadata: {
-        donationId: donation.id.toString(),
-        transactionId: transaction.id.toString(),
+        userId:       String(userId),
+        campaignId:   String(campaignId),
+        isAnonymous:  String(isAnonymous),
       },
     });
 
-    await this.prisma.transaction.update({
-      where: { id: transaction.id },
-      data: { providerTxId: intent.id },
-    });
-
-    return { clientSecret: intent.client_secret };
+    return { clientSecret: intent.client_secret! };
   }
 }

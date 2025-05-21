@@ -43,16 +43,18 @@ model Campaign {
   createdBy     User?      @relation("UserCampaigns", fields: [createdById], references: [id])
   createdById   Int?
   createdAt     DateTime   @default(now())
-  donations     Donation[]
+  donations     Donation[] // Видаляємо onDelete
+  isClosed      Boolean    @default(false)
 }
 
 model Donation {
   id           Int           @id @default(autoincrement())
   amount       Float
   isAnonymous  Boolean       @default(false)
+  status       String        @default("pending") 
   user         User?         @relation(fields: [userId], references: [id])
   userId       Int?
-  campaign     Campaign      @relation(fields: [campaignId], references: [id])
+  campaign     Campaign      @relation(fields: [campaignId], references: [id], onDelete: Cascade)
   campaignId   Int
   transaction  Transaction?  // one-to-one
   createdAt    DateTime      @default(now())
@@ -61,7 +63,7 @@ model Donation {
 model Transaction {
   id             Int           @id @default(autoincrement())
   donation       Donation      @relation(fields: [donationId], references: [id])
-  donationId     Int           @unique       // ← обов’язково unique для one-to-one
+  donationId     Int           @unique       
   bankAccount    BankAccount   @relation(fields: [bankAccountId], references: [id])
   bankAccountId  Int
   providerTxId   String

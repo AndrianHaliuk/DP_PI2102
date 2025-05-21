@@ -5,7 +5,7 @@ import { UpdateUserProfileDto } from './dto/update-user-profile.dto';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 
 @Controller('user-profile')
-// No @UseGuards here, CombinedAuthGuard працює глобально
+
 export class UserProfileController {
   constructor(
     private profileService: UserProfileService,

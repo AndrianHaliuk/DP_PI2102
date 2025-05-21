@@ -17,7 +17,6 @@ import CreateCampaignPage from './pages/CreateCampaignPage';
 import DonationPage from './pages/DonationPage';
 import ProfilePage from './pages/ProfilePage';
 import { LoginPage, RegisterPage } from './pages/AuthPages';
-
 import { RequireAuth } from './components/RequireAuth';
 
 const queryClient = new QueryClient();

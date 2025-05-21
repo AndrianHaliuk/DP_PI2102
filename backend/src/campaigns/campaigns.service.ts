@@ -6,14 +6,62 @@ import { CreateCampaignDto } from './dto/create-campaign.dto';
 export class CampaignsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAll() {
-    return this.prisma.campaign.findMany({ orderBy: { priority: 'desc' } });
+ async findAll() {
+  const campaigns = await this.prisma.campaign.findMany({
+    orderBy: { priority: 'asc' },
+    include: {
+      donations: {
+        where: { isAnonymous: false },
+        orderBy: { amount: 'desc' },
+        take: 3,
+        include: {
+          user: {
+            select: { name: true }
+          }
+        }
+      }
+    }
+  });
+
+    return campaigns.map(c => ({
+      ...c,
+      isClosed: c.currentAmount >= c.goalAmount,
+      topDonors: c.donations.map(d => ({
+        name: d.user?.name ?? 'Анонім',
+        amount: d.amount
+      }))
+    }));
   }
 
   async findOne(id: number) {
-    const campaign = await this.prisma.campaign.findUnique({ where: { id } });
-    if (!campaign) throw new NotFoundException('Campaign not found');
-    return campaign;
+    const campaign = await this.prisma.campaign.findUnique({
+      where: { id },
+      include: {
+        donations: {
+          where: { isAnonymous: false },
+          orderBy: { amount: 'desc' },
+          take: 3,
+          include: {
+            user: {
+              select: { name: true }
+            }
+          }
+        }
+      }
+    });
+
+    if (!campaign) {
+      throw new NotFoundException('Campaign not found');
+    }
+
+    return {
+      ...campaign,
+      isClosed: campaign.currentAmount >= campaign.goalAmount,
+      topDonors: campaign.donations.map(d => ({
+        name: d.user?.name ?? 'Анонім',
+        amount: d.amount
+      }))
+    };
   }
 
   async create(dto: CreateCampaignDto, userId: number) {

@@ -12,6 +12,6 @@ export const useCampaigns = () =>
       return data;
     },
     staleTime: 0,
-    refetchOnMount: 'always',
-    refetchOnWindowFocus: true,
+    refetchOnMount: 'always',  
+    refetchOnWindowFocus: false,  
   });

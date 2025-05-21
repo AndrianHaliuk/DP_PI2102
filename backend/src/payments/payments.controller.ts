@@ -8,9 +8,13 @@ export class PaymentsController {
 
   @Post('intent')
   async createIntent(
-    @GetUser('id') userId: number,      
-    @GetUser('role') role: string,          
-    @Body() body: { amount: number; campaignId: number; isAnonymous?: boolean; currency?: string },
+    @GetUser('id') userId: number,
+    @Body() body: {
+      amount: number;
+      campaignId: number;
+      isAnonymous?: boolean;
+      currency?: string;
+    },
   ) {
     const { amount, campaignId, isAnonymous = false, currency = 'uah' } = body;
     const { clientSecret } = await this.stripeService.createDonationIntent(

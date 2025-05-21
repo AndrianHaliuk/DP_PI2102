@@ -6,10 +6,9 @@ import { CreateDonationDto } from './dto/create-donation.dto';
 export class DonationsService {
   constructor(private readonly prisma: PrismaService) {}
 
+
   async donate(dto: CreateDonationDto, userId?: number) {
-    const campaign = await this.prisma.campaign.findUnique({
-      where: { id: dto.campaignId },
-    });
+    const campaign = await this.prisma.campaign.findUnique({ where: { id: dto.campaignId } });
     if (!campaign) throw new NotFoundException('Campaign not found');
 
     const donation = await this.prisma.donation.create({
@@ -40,34 +39,30 @@ export class DonationsService {
 
     await this.prisma.campaign.update({
       where: { id: donation.campaignId },
-      data: {
-        currentAmount: {
-          increment: donation.amount,
-        },
-      },
+      data: { currentAmount: { increment: donation.amount } },
     });
   }
 
   async findAllByUser(userId: number) {
     return this.prisma.donation.findMany({
-      where: { userId },
+      where: {
+        userId,
+        transaction: { status: 'succeeded' },
+      },
       include: {
-        campaign: {
-          select: { id: true, title: true },
-        },
+        campaign: { select: { id: true, title: true } },
       },
-      orderBy: {
-        createdAt: 'desc',
-      },
+      orderBy: { createdAt: 'desc' },
     });
   }
 
   async getTotalDonatedByUser(userId: number): Promise<number> {
     const result = await this.prisma.donation.aggregate({
-      where: { userId },
-      _sum: {
-        amount: true,
+      where: {
+        userId,
+        transaction: { status: 'succeeded' },
       },
+      _sum: { amount: true },
     });
     return result._sum.amount ?? 0;
   }

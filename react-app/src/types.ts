@@ -1,24 +1,18 @@
 export interface Campaign {
-    id: number;
-    title: string;
-    description: string;
-    imageUrl?: string;
-    goalAmount: number;
-    currentAmount: number;
-    priority: number;
-    createdById?: number;
-    createdAt: string; 
-  }
-  
-  export interface Donation {
-    id: number;
+  id: number;
+  title: string;
+  description: string;
+  imageUrl?: string;
+  goalAmount: number;
+  currentAmount: number;
+  priority: number;
+  isClosed: boolean;
+  createdAt: Date;
+  topDonors?: {
+    name: string;
     amount: number;
-    isAnonymous: boolean;
-    userId?: number;
-    campaignId: number;
-    createdAt: string;
-  }
-  
+  }[];
+}
   export interface User {
     id: number;
     email: string;
@@ -27,15 +21,19 @@ export interface Campaign {
     createdAt: string;
   }
   
-  export interface UserProfile {
-    id: number;
-    userId: number;
-    bio?: string;
-    avatarUrl?: string;
-    phone?: string;
-    address?: string;
-    createdAt: string;
-  }
+export interface UserProfile {
+  id: number;
+  userId: number;
+  bio?: string;
+  avatarUrl?: string;
+  phone?: string;
+  address?: string;
+  createdAt: string;
+  user: {
+    name?: string;
+    email: string;
+  };
+}
   
   export interface Donation {
     id: number;
