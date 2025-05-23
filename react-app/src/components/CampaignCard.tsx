@@ -34,7 +34,7 @@ export const CampaignCard: React.FC<CampaignCardProps> = ({ campaign }) => {
         {campaign.imageUrl && (
           <div className="campaign-card__image-wrapper">
             <img
-              src={`${BASE_URL}${campaign.imageUrl}`}
+              src={campaign.imageUrl}
               alt={campaign.title}
               className="campaign-card__image"
             />
