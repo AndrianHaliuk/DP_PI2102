@@ -14,7 +14,7 @@ const DonationPage: React.FC = () => {
     <Elements stripe={stripePromise}>
       <div className="app">
         <main className="container main-content">
-          <h1>Пожертвувати на кампанію #{campaignId}</h1>
+          <h1>Задонатити на збір #{campaignId}</h1>
           <DonateForm campaignId={campaignId} />
         </main>
         <Footer />

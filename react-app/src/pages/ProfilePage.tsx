@@ -109,7 +109,7 @@ const ProfilePage: React.FC = () => {
         )}
 
         <section className="profile__donations">
-          <h2>Мої пожертви</h2>
+          <h2>Мої донати</h2>
           {loadingDonations
             ? <div>Завантаження донатів…</div>
             : <DonationTable donations={donations} />
