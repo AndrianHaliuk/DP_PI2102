@@ -76,7 +76,7 @@ const ProfilePage: React.FC = () => {
               {editMode ? 'Скасувати' : 'Редагувати'}
             </button>
             {isAdmin && (
-              <button className="primary-btn" onClick={() => navigate('/create-campaign')}>
+              <button className="primary-btn" onClick={() => navigate('/campaigns/create')}>
                 Створити кампанію
               </button>
             )}
