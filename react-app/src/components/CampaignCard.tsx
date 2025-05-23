@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Campaign } from '../types';
 import TopDonorsMarquee from './TopDonorsMarquee';
-const BASE_URL = import.meta.env.VITE_API_URL;
 
 interface CampaignCardProps {
   campaign: Campaign & {
