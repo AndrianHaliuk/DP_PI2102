@@ -11,7 +11,7 @@ import { PaymentsModule } from './payments/payments.module';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UploadController } from '../uploads/upload.controller';
+import { UploadController } from './uploads/upload.controller';
 
 @Module({
   imports: [
