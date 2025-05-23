@@ -14,7 +14,24 @@ $spacing: 16px;
   padding: $spacing;
   margin-top: 80px;
 }
+.campaign-card__admin-actions {
+  .icon-btn {
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.2s;
 
+    &:hover {
+      background: rgba(0,0,0,0.1);
+    }
+
+    svg {
+      display: block;
+    }
+  }
+}
 .campaign-list__loading,
 .campaign-list__error,
 .campaign-list__empty {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
-import client from '../api/client'; // axios instance
+import client from '../api/client';
 import { Campaign } from '../types';
 
 const Events: React.FC = () => {
@@ -30,7 +30,7 @@ const Events: React.FC = () => {
         </h2>
         <div>
           <a href="#" className="primary-btn">Приєднатися як волонтер</a>
-          <a href="#" className="sec-btn">Пожертвувати</a>
+          <a href="/campaigns" className="sec-btn">Задонатити</a>
         </div>
       </div>
 

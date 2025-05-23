@@ -63,7 +63,7 @@ const ProfilePage: React.FC = () => {
           </div>
           <div className="profile__info">
             <h1 className="profile__name">{profile.user.name || 'User'}</h1>
-            <p className="profile__total">Загалом пожертвовано: <span>{total.toLocaleString()} ₴</span></p>
+            <p className="profile__total">Загальна сума донатів: <span>{total.toLocaleString()} ₴</span></p>
             <div className="profile__details">
               <p><strong>Про себе:</strong> {profile.bio || 'Немає інформації'}</p>
               <p><strong>Телефон:</strong> {profile.phone || '-'}</p>

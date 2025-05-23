@@ -1,6 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Campaign } from '../types';
+import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FiSettings, FiTrash2 } from 'react-icons/fi';
+import { AuthContext } from '../contexts/AuthContext';
+import client from '../api/client';
 import TopDonorsMarquee from './TopDonorsMarquee';
+import { Campaign } from '../types';
 
 interface CampaignCardProps {
   campaign: Campaign & {
@@ -10,11 +14,13 @@ interface CampaignCardProps {
 }
 
 export const CampaignCard: React.FC<CampaignCardProps> = ({ campaign }) => {
+  const navigate = useNavigate();
+  const { isAdmin } = useContext(AuthContext);
+
   const targetPercent = Math.min(
     (campaign.currentAmount / campaign.goalAmount) * 100,
     100
   );
-
   const [width, setWidth] = useState('0%');
   useEffect(() => {
     const t = setTimeout(() => setWidth(`${targetPercent}%`), 50);
@@ -23,12 +29,44 @@ export const CampaignCard: React.FC<CampaignCardProps> = ({ campaign }) => {
 
   const remaining = Math.max(campaign.goalAmount - campaign.currentAmount, 0);
 
+  // --- Адмінські хендлери ---
+  const handleEdit = () => navigate(`/campaigns/edit/${campaign.id}`);
+  const handleDelete = async () => {
+    if (!window.confirm('Видалити цю кампанію назавжди?')) return;
+    try {
+      await client.delete(`/campaigns/${campaign.id}`);
+      // можна додатково оновити список у батьківському компоненті
+      window.location.reload();
+    } catch (err) {
+      console.error('Помилка видалення кампанії:', err);
+    }
+  };
+
   return (
     <div
       className={`campaign-card ${
         campaign.isClosed ? 'closed' : ''
       } priority-${campaign.priority}`}
+      style={{ position: 'relative' }} // щоб кнопки можна було позиціонувати
     >
+      {/* --- Адмінські кнопки --- */}
+      {isAdmin && (
+        <div className="campaign-card__admin-actions" style={{
+          position: 'absolute',
+          top: '8px',
+          right: '8px',
+          display: 'flex',
+          gap: '4px'
+        }}>
+          <button onClick={handleEdit} title="Редагувати" className="icon-btn">
+            <FiSettings size={18} />
+          </button>
+          <button onClick={handleDelete} title="Видалити" className="icon-btn">
+            <FiTrash2 size={18} />
+          </button>
+        </div>
+      )}
+
       <div className="campaign-card__content">
         {campaign.imageUrl && (
           <div className="campaign-card__image-wrapper">
@@ -66,7 +104,7 @@ export const CampaignCard: React.FC<CampaignCardProps> = ({ campaign }) => {
       <div className="top-donors-footer">
         {campaign.topDonors?.length ? (
           <>
-            <h4 className="thank-you-title">Дякуюємо❤️</h4>
+            <h4 className="thank-you-title">Дякуємо ❤️</h4>
             <TopDonorsMarquee donors={campaign.topDonors} />
           </>
         ) : null}
