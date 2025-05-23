@@ -6,7 +6,6 @@ import { CreateDonationDto } from './dto/create-donation.dto';
 export class DonationsService {
   constructor(private readonly prisma: PrismaService) {}
 
-
   async donate(dto: CreateDonationDto, userId?: number) {
     const campaign = await this.prisma.campaign.findUnique({ where: { id: dto.campaignId } });
     if (!campaign) throw new NotFoundException('Campaign not found');
@@ -65,5 +64,34 @@ export class DonationsService {
       _sum: { amount: true },
     });
     return result._sum.amount ?? 0;
+  }
+
+  // Нові методи для вебхука
+
+  async findPendingDonation(userId: number, campaignId: number) {
+    return this.prisma.donation.findFirst({
+      where: {
+        userId,
+        campaignId,
+        status: 'pending',
+      },
+    });
+  }
+
+  async createTransactionForDonation(
+    donationId: number,
+    stripeTxId: string,
+    bankAccountId: number,
+    amount: number,
+  ) {
+    return this.prisma.transaction.create({
+      data: {
+        donationId,
+        providerTxId: stripeTxId,
+        bankAccountId,
+        status: 'pending',
+        amount,
+      },
+    });
   }
 }
