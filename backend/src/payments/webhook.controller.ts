@@ -58,13 +58,11 @@ export class WebhookController {
         return res.status(400).send('Missing metadata');
       }
 
-      // 1) створюємо Donation
       const donation = await this.donationsService.donate(
         { campaignId, amount, isAnonymous },
         userId,
       );
 
-      // 2) підтверджуємо та оновлюємо кампанію
       await this.donationsService.confirmDonation(donation.id, intent.id);
 
       this.logger.log(`Donation ${donation.id} created & confirmed`);

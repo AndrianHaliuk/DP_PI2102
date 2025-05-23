@@ -53,7 +53,7 @@ const CreateCampaignPage: React.FC = () => {
               type="text"
               value={title}
               onChange={e => setTitle(e.target.value)}
-              placeholder="Збір на авто для ЗСУ"
+              placeholder="Збір на..."
             />
             {errors.title && <p className="campaign-form__error">{errors.title}</p>}
           </div>

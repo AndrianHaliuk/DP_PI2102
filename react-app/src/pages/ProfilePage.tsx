@@ -25,6 +25,11 @@ const ProfilePage: React.FC = () => {
     }
   }, [profile]);
 
+const handleLogout = () => {
+  localStorage.removeItem('token');
+  window.location.href = '/login';
+};
+
 const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
   if (!e.target.files?.[0]) return;
   const file = e.target.files[0];
@@ -69,6 +74,7 @@ const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
           <button className="primary-btn" onClick={() => setEditMode(!editMode)}>
             {editMode ? 'Скасувати' : 'Редагувати'}
           </button>
+           <button className="logout-btn" onClick={handleLogout}>Вийти</button>
         </section>
 
         {editMode && (
