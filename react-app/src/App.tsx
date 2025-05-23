@@ -1,4 +1,3 @@
-// src/App.tsx
 import React, { useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -18,6 +17,7 @@ import DonationPage from './pages/DonationPage';
 import ProfilePage from './pages/ProfilePage';
 import { LoginPage, RegisterPage } from './pages/AuthPages';
 import { RequireAuth } from './components/RequireAuth';
+import EditCampaignPage from './pages/EditCampaignPage';
 
 const queryClient = new QueryClient();
 
@@ -61,6 +61,15 @@ const App: React.FC = () => {
             }
           />
 
+          <Route
+          path="/campaigns/edit/:id"
+          element={
+            <RequireAuth>
+              <EditCampaignPage />
+            </RequireAuth>
+          }
+           />
+                  
           <Route path="/profile" element={
             <RequireAuth>
               <ProfilePage />

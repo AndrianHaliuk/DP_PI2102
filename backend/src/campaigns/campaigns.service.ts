@@ -6,22 +6,22 @@ import { CreateCampaignDto } from './dto/create-campaign.dto';
 export class CampaignsService {
   constructor(private readonly prisma: PrismaService) {}
 
- async findAll() {
-  const campaigns = await this.prisma.campaign.findMany({
-    orderBy: { priority: 'asc' },
-    include: {
-      donations: {
-        where: { isAnonymous: false },
-        orderBy: { amount: 'desc' },
-        take: 3,
-        include: {
-          user: {
-            select: { name: true }
+  async findAll() {
+    const campaigns = await this.prisma.campaign.findMany({
+      orderBy: { priority: 'asc' },
+      include: {
+        donations: {
+          where: { isAnonymous: false },
+          orderBy: { amount: 'desc' },
+          take: 3,
+          include: {
+            user: {
+              select: { name: true }
+            }
           }
         }
       }
-    }
-  });
+    });
 
     return campaigns.map(c => ({
       ...c,
@@ -84,6 +84,11 @@ export class CampaignsService {
 
   async remove(id: number) {
     await this.findOne(id);
+
+    await this.prisma.donation.deleteMany({
+      where: { campaignId: id },
+    });
+
     return this.prisma.campaign.delete({ where: { id } });
   }
 }
