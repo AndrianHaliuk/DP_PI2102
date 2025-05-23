@@ -17,7 +17,7 @@ const TopDonorsMarquee: React.FC<Props> = ({ donors }) => {
   useEffect(() => {
     if (contentRef.current) {
       const contentWidth = contentRef.current.scrollWidth;
-      const speedPxPerSec = 100; // налаштуй швидкість тут
+      const speedPxPerSec = 60; 
       const duration = contentWidth / speedPxPerSec;
 
       setAnimationDuration(duration);
