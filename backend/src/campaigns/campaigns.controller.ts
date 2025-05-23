@@ -26,7 +26,6 @@ export class CampaignsController {
     return this.service.findOne(id);
   }
 
-  // Доступ лише для admin
   @Roles('admin')
   @Post()
   @UseInterceptors(FileInterceptor('image', {
@@ -46,11 +45,11 @@ export class CampaignsController {
   }))
   create(
     @Body() dto: CreateCampaignDto,
-    @Req() req: any, // тут вже є req.user
+    @Req() req: any, 
     @UploadedFile() file?: Express.Multer.File,
   ) {
     const userId = req.user.id;
-    if (file) dto.imageUrl = `/uploads/${file.filename}`;
+    if (file) dto.imageUrl = `/src/uploads/${file.filename}`;
     return this.service.create(dto, userId);
   }
 
