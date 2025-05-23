@@ -9,7 +9,8 @@ const CreateCampaignPage: React.FC = () => {
   const [description, setDescription] = useState<string>('');
   const [goalAmount, setGoalAmount] = useState<number>(0);
   const [priority, setPriority] = useState<number>(3);
-  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState<string>('');
+  const [uploading, setUploading] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const navigate = useNavigate();
 
@@ -25,19 +26,43 @@ const CreateCampaignPage: React.FC = () => {
     return Object.keys(errs).length === 0;
   };
 
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files?.[0]) return;
+    setUploading(true);
+    const file = e.target.files[0];
+    const data = new FormData();
+    data.append('file', file);
+
+    try {
+      const res = await client.post('/upload/campaign-image', data, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      setImageUrl(res.data.url);
+    } catch (err) {
+      console.error('Помилка завантаження картинки:', err);
+      alert('Не вдалося завантажити зображення');
+    } finally {
+      setUploading(false);
+    }
+  };
+
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('description', description);
-    formData.append('goalAmount', goalAmount.toString());
-    formData.append('priority', priority.toString());
-    if (imageFile) formData.append('image', imageFile);
-    await client.post('/campaigns', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
-    navigate('/campaigns');
+
+    try {
+      await client.post('/campaigns', {
+        title,
+        description,
+        goalAmount,
+        priority,
+        imageUrl,
+      });
+      navigate('/campaigns');
+    } catch (err) {
+      console.error('Помилка створення кампанії:', err);
+      alert('Помилка при створенні кампанії');
+    }
   };
 
   return (
@@ -75,8 +100,17 @@ const CreateCampaignPage: React.FC = () => {
               className="campaign-form__input-file"
               type="file"
               accept="image/*"
-              onChange={e => setImageFile(e.target.files?.[0] || null)}
+              onChange={handleFileChange}
+              disabled={uploading}
             />
+            {uploading && <p>Завантаження картинки...</p>}
+            {imageUrl && (
+              <img
+                src={imageUrl}
+                alt="Попередній перегляд"
+                style={{ maxWidth: '200px', marginTop: '10px' }}
+              />
+            )}
           </div>
 
           <div className="campaign-form__row">
@@ -107,7 +141,7 @@ const CreateCampaignPage: React.FC = () => {
             </div>
           </div>
 
-          <button type="submit" className="btn-width primary-btn">
+          <button type="submit" className="btn-width primary-btn" disabled={uploading}>
             Створити кампанію
           </button>
         </form>

@@ -7,7 +7,10 @@ interface RequireAuthProps {
 }
 
 export const RequireAuth: React.FC<RequireAuthProps> = ({ children }) => {
-  const { token } = useContext(AuthContext);
+  const { token, loading } = useContext(AuthContext);
+
+  if (loading) return <div>Завантаження...</div>;
   if (!token) return <Navigate to="/login" replace />;
+
   return <>{children}</>;
 };

@@ -37,7 +37,6 @@ export const DonateForm: React.FC<{ campaignId: number }> = ({ campaignId }) => 
         });
 
         if (result?.paymentIntent?.status === 'succeeded') {
-          // 1) оновлюємо кеш кампаній локально
           queryClient.setQueryData<Campaign[]>(['campaigns'], old =>
             old?.map(c =>
               c.id === dto.campaignId
@@ -46,13 +45,12 @@ export const DonateForm: React.FC<{ campaignId: number }> = ({ campaignId }) => 
             ) ?? []
           );
 
-          // 2) показуємо "дякую"
           setShowThankYou(true);
 
           setTimeout(() => {
             setShowThankYou(false);
             setIsProcessing(false);
-            // 3) йдемо на список кампаній
+
             navigate('/campaigns');
           }, 2000);
         } else {

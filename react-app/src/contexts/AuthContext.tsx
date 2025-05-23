@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
 import client from '../api/client';
-import { jwtDecode } from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 
 interface DecodedToken {
   exp: number;
@@ -12,6 +12,7 @@ interface AuthContextType {
   token: string | null;
   userRole: string | null;
   isAdmin: boolean;
+  loading: boolean;
   login: (email: string, password: string) => Promise<void>;
   register: (email: string, password: string, name?: string) => Promise<void>;
   logout: () => void;
@@ -26,6 +27,7 @@ export const AuthContext = createContext<AuthContextType>({} as AuthContextType)
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [token, setToken] = useState<string | null>(null);
   const [userRole, setUserRole] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
@@ -35,13 +37,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         const now = Date.now() / 1000;
         if (decoded.exp < now) {
           localStorage.removeItem('token');
+          setLoading(false);
         } else {
           setToken(storedToken);
           setUserRole(decoded.role || null);
+          setLoading(false);
         }
       } catch {
         localStorage.removeItem('token');
+        setLoading(false);
       }
+    } else {
+      setLoading(false);
     }
   }, []);
 
@@ -74,9 +81,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         token,
         userRole,
         isAdmin: userRole === 'admin',
+        loading,
         login,
         register,
-        logout
+        logout,
       }}
     >
       {children}
