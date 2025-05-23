@@ -68,24 +68,34 @@ const EditCampaignPage: React.FC = () => {
     return Object.keys(errs).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validate()) return;
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  if (!validate()) return;
 
-    try {
-      await client.put(`/campaigns/${id}`, {
-        title,
-        description,
-        goalAmount,
-        priority,
-        imageUrl,
-      });
-      navigate('/campaigns');
-    } catch (err) {
-      console.error('Помилка оновлення кампанії:', err);
-      alert('Помилка при оновленні кампанії');
-    }
-  };
+  if (!id) {
+    alert('Некоректний id кампанії');
+    return;
+  }
+
+  if (isNaN(goalAmount) || goalAmount <= 0) {
+    alert('Цільова сума має бути числом більше 0');
+    return;
+  }
+
+  try {
+    await client.put(`/campaigns/${Number(id)}`, {
+      title,
+      description,
+      goalAmount,
+      priority,
+      imageUrl,
+    });
+    navigate('/campaigns');
+  } catch (err) {
+    console.error('Помилка оновлення кампанії:', err);
+    alert('Помилка при оновленні кампанії');
+  }
+};
 
   return (
     <>
