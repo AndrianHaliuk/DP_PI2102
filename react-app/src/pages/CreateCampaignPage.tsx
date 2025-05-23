@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import client from '../api/client';
 import Footer from '../components/Footer';
-import '../assets/styles/_сreate-сampaign-page.scss';
+import '../assets/styles/_create-campaign-page.scss';
 
 const CreateCampaignPage: React.FC = () => {
   const [title, setTitle] = useState<string>('');
@@ -34,6 +34,7 @@ const CreateCampaignPage: React.FC = () => {
     data.append('file', file);
 
     try {
+      // Виклик нового ендпоінту без campaignId
       const res = await client.post('/upload/campaign-image', data, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
@@ -56,7 +57,7 @@ const CreateCampaignPage: React.FC = () => {
         description,
         goalAmount,
         priority,
-        imageUrl,
+        imageUrl, // Передаємо url завантаженої картинки в кампанію
       });
       navigate('/campaigns');
     } catch (err) {

@@ -46,27 +46,29 @@ export class SupabaseStorageService {
     const { publicUrl } = this.storage.from(this.bucket).getPublicUrl(path).data;
     return publicUrl;
   }
-  async uploadCampaignImage(file: Express.Multer.File, campaignId: string): Promise<string> {
-  if (!file.mimetype.startsWith('image/')) {
-    throw new InternalServerErrorException('Invalid file type');
+
+  
+   async uploadCampaignImage(file: Express.Multer.File, campaignId: string): Promise<string> {
+    if (!file.mimetype.startsWith('image/')) {
+      throw new InternalServerErrorException('Invalid file type');
+    }
+
+    const filename = `${Date.now()}-${file.originalname}`;
+    const path = `campaign-${campaignId}/${filename}`;
+    const buffer = file.buffer || fs.readFileSync(file.path);
+
+    const { error } = await this.storage.from(this.bucket).upload(path, buffer, {
+      contentType: file.mimetype,
+      upsert: true,
+    });
+
+    if (file.path) {
+      fs.unlink(file.path, () => {});
+    }
+
+    if (error) throw new InternalServerErrorException('Upload failed: ' + error.message);
+
+    const { publicUrl } = this.storage.from(this.bucket).getPublicUrl(path).data;
+    return publicUrl;
   }
-
-  const filename = `${Date.now()}-${file.originalname}`;
-  const path = `campaign-${campaignId}/${filename}`;
-  const buffer = file.buffer || fs.readFileSync(file.path);
-
-  const { error } = await this.storage.from(this.bucket).upload(path, buffer, {
-    contentType: file.mimetype,
-    upsert: true,
-  });
-
-  if (file.path) {
-    fs.unlink(file.path, () => {});
-  }
-
-  if (error) throw new InternalServerErrorException('Upload failed: ' + error.message);
-
-  const { publicUrl } = this.storage.from(this.bucket).getPublicUrl(path).data;
-  return publicUrl;
-}
 }
