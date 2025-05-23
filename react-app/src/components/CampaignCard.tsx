@@ -16,14 +16,12 @@ export const CampaignCard: React.FC<CampaignCardProps> = ({ campaign }) => {
     100
   );
 
-  // Локальний стейт для анімації прогресу
   const [width, setWidth] = useState('0%');
   useEffect(() => {
     const t = setTimeout(() => setWidth(`${targetPercent}%`), 50);
     return () => clearTimeout(t);
   }, [targetPercent]);
 
-  // Обчислюємо, скільки ще потрібно зібрати
   const remaining = Math.max(campaign.goalAmount - campaign.currentAmount, 0);
 
   return (

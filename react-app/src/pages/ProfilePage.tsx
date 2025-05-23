@@ -1,11 +1,16 @@
-import React, { useState, useEffect, ChangeEvent } from 'react';
+import React, { useState, useEffect, ChangeEvent, useContext } from 'react';
 import { useProfile, useUpdateProfile, useMyDonations, useDonationSummary } from '../hooks/useProfile';
 import Footer from '../components/Footer';
 import DonationTable from '../components/DonationTable';
-import '../assets/styles/_profile-page.scss'; 
+import '../assets/styles/_profile-page.scss';
 import client from '../api/client';
+import { AuthContext } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const ProfilePage: React.FC = () => {
+  const { logout, isAdmin } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const { data: profile, isLoading: loadingProfile } = useProfile();
   const { data: donations = [], isLoading: loadingDonations } = useMyDonations();
   const { data: total = 0 } = useDonationSummary();
@@ -25,26 +30,21 @@ const ProfilePage: React.FC = () => {
     }
   }, [profile]);
 
-const handleLogout = () => {
-  localStorage.removeItem('token');
-  window.location.href = '/login';
-};
+  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files?.[0]) return;
+    const file = e.target.files[0];
+    const data = new FormData();
+    data.append('file', file);
 
-const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
-  if (!e.target.files?.[0]) return;
-  const file = e.target.files[0];
-  const data = new FormData();
-  data.append('file', file);
-
-  try {
-    const res = await client.post('/upload/avatar', data, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
-    setForm(f => ({ ...f, avatarUrl: res.data.url }));
-  } catch (error) {
-    console.error('Помилка завантаження аватару:', error);
-  }
-};
+    try {
+      const res = await client.post('/upload/avatar', data, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      setForm(f => ({ ...f, avatarUrl: res.data.url }));
+    } catch (error) {
+      console.error('Помилка завантаження аватару:', error);
+    }
+  };
 
   const handleSave = () => updateMutation.mutate(form, { onSuccess: () => setEditMode(false) });
 
@@ -69,12 +69,19 @@ const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
               <p><strong>Телефон:</strong> {profile.phone || '-'}</p>
               <p><strong>Адреса:</strong> {profile.address || '-'}</p>
               <p>ID: {profile.userId}</p>
+            </div>
           </div>
+          <div className="profile__actions">
+            <button className="primary-btn" onClick={() => setEditMode(!editMode)}>
+              {editMode ? 'Скасувати' : 'Редагувати'}
+            </button>
+            {isAdmin && (
+              <button className="primary-btn" onClick={() => navigate('/create-campaign')}>
+                Створити кампанію
+              </button>
+            )}
+            <button className="nav-btn" onClick={logout}>Вийти</button>
           </div>
-          <button className="primary-btn" onClick={() => setEditMode(!editMode)}>
-            {editMode ? 'Скасувати' : 'Редагувати'}
-          </button>
-           <button className="logout-btn" onClick={handleLogout}>Вийти</button>
         </section>
 
         {editMode && (
