@@ -83,7 +83,7 @@ const handleSubmit = async (e: React.FormEvent) => {
   }
 
   try {
-    await client.put(`/campaigns/${Number(id)}`, {
+    await client.patch(`/campaigns/${Number(id)}`, {
       title,
       description,
       goalAmount,
