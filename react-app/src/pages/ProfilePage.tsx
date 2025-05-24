@@ -1,4 +1,10 @@
-import React, { useState, useEffect, ChangeEvent, useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
+
 import { useProfile, useUpdateProfile, useMyDonations, useDonationSummary } from '../hooks/useProfile';
 import Footer from '../components/Footer';
 import DonationTable from '../components/DonationTable';
@@ -6,6 +12,12 @@ import '../assets/styles/_profile-page.scss';
 import client from '../api/client';
 import { AuthContext } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+
+const schema = yup.object().shape({
+  bio: yup.string().max(200, 'Максимум 200 символів'),
+  address: yup.string().max(100, 'Максимум 100 символів'),
+  phone: yup.string().nullable().required('Введіть номер телефону'),
+});
 
 const ProfilePage: React.FC = () => {
   const { logout, isAdmin } = useContext(AuthContext);
@@ -17,20 +29,32 @@ const ProfilePage: React.FC = () => {
   const updateMutation = useUpdateProfile();
 
   const [editMode, setEditMode] = useState(false);
-  const [form, setForm] = useState({ bio: '', avatarUrl: '', phone: '', address: '' });
+  const [avatarUrl, setAvatarUrl] = useState('');
+
+  const {
+    register,
+    handleSubmit,
+    control,
+    setValue,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: { bio: '', phone: '', address: '' }
+  });
 
   useEffect(() => {
     if (profile) {
-      setForm({
+      reset({
         bio: profile.bio || '',
-        avatarUrl: profile.avatarUrl || '',
         phone: profile.phone || '',
-        address: profile.address || ''
+        address: profile.address || '',
       });
+      setAvatarUrl(profile.avatarUrl || '');
     }
-  }, [profile]);
+  }, [profile, reset]);
 
-  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files?.[0]) return;
     const file = e.target.files[0];
     const data = new FormData();
@@ -40,13 +64,15 @@ const ProfilePage: React.FC = () => {
       const res = await client.post('/upload/avatar', data, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
-      setForm(f => ({ ...f, avatarUrl: res.data.url }));
+      setAvatarUrl(res.data.url);
     } catch (error) {
       console.error('Помилка завантаження аватару:', error);
     }
   };
 
-  const handleSave = () => updateMutation.mutate(form, { onSuccess: () => setEditMode(false) });
+  const onSubmit = (data: any) => {
+    updateMutation.mutate({ ...data, avatarUrl }, { onSuccess: () => setEditMode(false) });
+  };
 
   if (loadingProfile) return <div className="profile--loading">Завантаження…</div>;
   if (!profile) return <div className="profile--loading">Профіль не знайдено.</div>;
@@ -56,8 +82,8 @@ const ProfilePage: React.FC = () => {
       <main className="profile">
         <section className="profile__header">
           <div className="profile__avatar">
-            {form.avatarUrl
-              ? <img src={form.avatarUrl} alt="avatar" />
+            {avatarUrl
+              ? <img src={avatarUrl} alt="avatar" />
               : <div className="avatar--placeholder">?</div>
             }
           </div>
@@ -86,25 +112,38 @@ const ProfilePage: React.FC = () => {
 
         {editMode && (
           <section className="profile__edit">
-            <div className="form-grid">
+            <form className="form-grid" onSubmit={handleSubmit(onSubmit)}>
               <label>
                 Про себе
-                <input type="text" value={form.bio} onChange={e => setForm(f => ({ ...f, bio: e.target.value }))} />
+                <input type="text" {...register('bio')} maxLength={200} />
+                {errors.bio && <span className="error">{errors.bio.message}</span>}
               </label>
               <label>
                 Телефон
-                <input type="text" value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} />
+                <Controller
+                  name="phone"
+                  control={control}
+                  render={({ field }) => (
+                    <PhoneInput
+                      {...field}
+                      defaultCountry="UA"
+                      placeholder="Введіть номер телефону"
+                    />
+                  )}
+                />
+                {errors.phone && <span className="error">{errors.phone.message}</span>}
               </label>
               <label>
                 Адреса
-                <input type="text" value={form.address} onChange={e => setForm(f => ({ ...f, address: e.target.value }))} />
+                <input type="text" {...register('address')} maxLength={100} />
+                {errors.address && <span className="error">{errors.address.message}</span>}
               </label>
               <label>
                 Аватар
                 <input type="file" accept="image/*" onChange={handleFileChange} />
               </label>
-            </div>
-            <button className="nav-btn" onClick={handleSave}>Зберегти</button>
+              <button className="nav-btn" type="submit">Зберегти</button>
+            </form>
           </section>
         )}
 

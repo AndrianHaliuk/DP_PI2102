@@ -1,4 +1,3 @@
-// src/campaigns/campaigns.controller.ts
 import {
   Controller, Get, Post, Patch, Delete,
   Body, Param, Req, ParseIntPipe,
@@ -11,16 +10,19 @@ import { extname } from 'path';
 import { CampaignsService } from './campaigns.service';
 import { CreateCampaignDto } from './dto/create-campaign.dto';
 import { Roles } from '../auth/roles.decorator';
+import { Public } from '../auth/public.decorator';
 
 @Controller('campaigns')
 export class CampaignsController {
   constructor(private readonly service: CampaignsService) {}
 
+  @Public() 
   @Get()
   getAll() {
     return this.service.findAll();
   }
 
+  @Public() 
   @Get(':id')
   getOne(@Param('id', ParseIntPipe) id: number) {
     return this.service.findOne(id);
