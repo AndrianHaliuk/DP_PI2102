@@ -11,9 +11,10 @@ interface CampaignCardProps {
     isClosed: boolean;
     topDonors?: { name: string; amount: number }[];
   };
+  onDeleted?: (id: number) => void;  // новий проп
 }
 
-export const CampaignCard: React.FC<CampaignCardProps> = ({ campaign }) => {
+export const CampaignCard: React.FC<CampaignCardProps> = ({ campaign, onDeleted }) => {
   const navigate = useNavigate();
   const { isAdmin } = useContext(AuthContext);
 
@@ -34,7 +35,7 @@ export const CampaignCard: React.FC<CampaignCardProps> = ({ campaign }) => {
     if (!window.confirm('Видалити цю кампанію назавжди?')) return;
     try {
       await client.delete(`/campaigns/${campaign.id}`);
-      window.location.reload();
+      if (onDeleted) onDeleted(campaign.id);  // повідомляємо батька
     } catch (err) {
       console.error('Помилка видалення кампанії:', err);
     }
@@ -45,16 +46,19 @@ export const CampaignCard: React.FC<CampaignCardProps> = ({ campaign }) => {
       className={`campaign-card ${
         campaign.isClosed ? 'closed' : ''
       } priority-${campaign.priority}`}
-      style={{ position: 'relative' }} 
+      style={{ position: 'relative' }}
     >
       {isAdmin && (
-        <div className="campaign-card__admin-actions" style={{
-          position: 'absolute',
-          top: '8px',
-          right: '8px',
-          display: 'flex',
-          gap: '4px'
-        }}>
+        <div
+          className="campaign-card__admin-actions"
+          style={{
+            position: 'absolute',
+            top: '8px',
+            right: '8px',
+            display: 'flex',
+            gap: '4px',
+          }}
+        >
           <button onClick={handleEdit} title="Редагувати" className="icon-btn">
             <FiSettings size={18} />
           </button>
@@ -94,9 +98,7 @@ export const CampaignCard: React.FC<CampaignCardProps> = ({ campaign }) => {
       <div className="progress-bar">
         <div className="progress-fill" style={{ width }} />
       </div>
-      <span className="campaign-card__percent">
-        {targetPercent.toFixed(0)}%
-      </span>
+      <span className="campaign-card__percent">{targetPercent.toFixed(0)}%</span>
 
       <div className="top-donors-footer">
         {campaign.topDonors?.length ? (

@@ -19,13 +19,13 @@ export class CampaignsController {
   @Public() 
   @Get()
   getAll() {
-    return this.service.findAll();
+    return this.service.findAll({ excludeDeleted: true });
   }
 
   @Public() 
   @Get(':id')
   getOne(@Param('id', ParseIntPipe) id: number) {
-    return this.service.findOne(id);
+    return this.service.findOne(id, { excludeDeleted: true }); 
   }
 
   @Roles('admin')
@@ -67,6 +67,6 @@ export class CampaignsController {
   @Roles('admin')
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number) {
-    return this.service.remove(id);
+    return this.service.remove(id); 
   }
 }
