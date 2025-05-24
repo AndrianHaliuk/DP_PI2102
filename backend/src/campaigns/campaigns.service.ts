@@ -6,8 +6,10 @@ import { CreateCampaignDto } from './dto/create-campaign.dto';
 export class CampaignsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAll() {
+  async findAll(options?: { excludeDeleted?: boolean }) {
+    const where = options?.excludeDeleted ? { isDeleted: false } : {};
     const campaigns = await this.prisma.campaign.findMany({
+      where,
       orderBy: { priority: 'asc' },
       include: {
         donations: {
@@ -33,9 +35,10 @@ export class CampaignsService {
     }));
   }
 
-  async findOne(id: number) {
+  async findOne(id: number, options?: { excludeDeleted?: boolean }) {
+    const where = options?.excludeDeleted ? { id, isDeleted: false } : { id };
     const campaign = await this.prisma.campaign.findUnique({
-      where: { id },
+      where,
       include: {
         donations: {
           where: { isAnonymous: false },
@@ -73,22 +76,23 @@ export class CampaignsService {
         goalAmount: Number(dto.goalAmount),
         priority: Number(dto.priority),
         createdById: userId,
+        isDeleted: false,
       },
     });
   }
 
   async update(id: number, dto: CreateCampaignDto) {
-    await this.findOne(id);
+    await this.findOne(id, { excludeDeleted: true });
     return this.prisma.campaign.update({ where: { id }, data: dto });
   }
 
   async remove(id: number) {
-    await this.findOne(id);
+    await this.findOne(id, { excludeDeleted: true });
 
-    await this.prisma.donation.deleteMany({
-      where: { campaignId: id },
+    // Soft delete — позначаємо як видалену
+    return this.prisma.campaign.update({
+      where: { id },
+      data: { isDeleted: true },
     });
-
-    return this.prisma.campaign.delete({ where: { id } });
   }
 }
