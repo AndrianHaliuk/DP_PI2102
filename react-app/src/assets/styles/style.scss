@@ -1693,7 +1693,7 @@ button {
     padding: 48px;
     padding-bottom: 40px;
     max-width: 640px;
-    height: 684px;
+    min-height: 400px;
   }
   .modal-content form .form-row{
     flex-direction: row;

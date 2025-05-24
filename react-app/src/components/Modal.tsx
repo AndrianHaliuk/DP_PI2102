@@ -59,7 +59,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
             <path d="M1 13L13 1M1 1L13 13" stroke="white" strokeWidth="1.5" />
           </svg>
         </div>
-        <h2>Долучіться як волонтер</h2>
+        <h2>Залиште свій відгук</h2>
         <p>Напишіть нам будь-яке повідомлення або питання, ми раді допомогти!</p>
         <form className="contact-form" onSubmit={handleSubmit}>
           <div className="form-group">

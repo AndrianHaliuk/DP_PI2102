@@ -13,6 +13,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UploadController } from './uploads/upload.controller';
 import { UploadsModule } from './uploads/uploads.module';
+import { FeedbackModule } from './feedback/feedback.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { UploadsModule } from './uploads/uploads.module';
     UploadsModule,
     PrismaModule,
     AuthModule,
+    FeedbackModule,
     CampaignsModule,
     DonationsModule,
     UserProfileModule,
