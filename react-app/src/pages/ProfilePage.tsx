@@ -35,7 +35,6 @@ const ProfilePage: React.FC = () => {
     register,
     handleSubmit,
     control,
-    setValue,
     formState: { errors },
     reset,
   } = useForm({
