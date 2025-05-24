@@ -1,17 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
+import client from '../api/client';
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const ANIMATION_DURATION = 300; // мілісекунди, має співпадати з CSS
+const ANIMATION_DURATION = 300;
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   const [shouldRender, setShouldRender] = useState(isOpen);
+  const [message, setMessage] = useState('');
   const modalRef = useRef<HTMLDivElement>(null);
 
-  // Керуємо присутністю модалки в DOM
   useEffect(() => {
     if (isOpen) {
       setShouldRender(true);
@@ -23,7 +24,6 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
     }
   }, [isOpen]);
 
-  // Закриття по кліку поза модалкою
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
@@ -33,6 +33,18 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
     if (isOpen) document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isOpen, onClose]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      await client.post('/feedback', { message });
+      setMessage('');
+      onClose();
+    } catch (error) {
+      alert('Помилка надсилання повідомлення');
+    }
+  };
 
   if (!shouldRender) return null;
 
@@ -48,30 +60,23 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
           </svg>
         </div>
         <h2>Долучіться як волонтер</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          <form className="contact-form">
-            <div className="form-row">
-              <div className="form-group">
-                <label htmlFor="first-name">Ім'я</label>
-                <input type="text" id="first-name" />
-              </div>
-              <div className="form-group">
-                <label htmlFor="last-name">Прізвище</label>
-                <input type="text" id="last-name" />
-              </div>
-            </div>
-            <div className="form-group">
-              <label htmlFor="contact-email">Електронна пошта</label>
-              <input type="email" id="contact-email" />
-            </div>
-            <div className="form-group">
-              <label htmlFor="message">Повідомлення</label>
-              <textarea id="message" rows={5} />
-            </div>
-            <div className="button-wrapper">
-              <button type="submit" className="primary-btn">Надіслати повідомлення</button>
-            </div>
-          </form>
+        <p>Напишіть нам будь-яке повідомлення або питання, ми раді допомогти!</p>
+        <form className="contact-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="message">Повідомлення</label>
+            <textarea
+              id="message"
+              rows={5}
+              placeholder="Введіть ваше повідомлення тут..."
+              value={message}
+              onChange={e => setMessage(e.target.value)}
+              required
+            />
+          </div>
+          <div className="button-wrapper">
+            <button type="submit" className="primary-btn">Надіслати повідомлення</button>
+          </div>
+        </form>
       </div>
     </div>
   );

@@ -105,6 +105,8 @@ const ProfilePage: React.FC = () => {
                 Створити кампанію
               </button>
             )}
+          </div>
+          <div className="profile__leave">
             <button className="nav-btn" onClick={logout}>Вийти</button>
           </div>
         </section>

@@ -29,13 +29,11 @@ export const CampaignCard: React.FC<CampaignCardProps> = ({ campaign }) => {
 
   const remaining = Math.max(campaign.goalAmount - campaign.currentAmount, 0);
 
-  // --- Адмінські хендлери ---
   const handleEdit = () => navigate(`/campaigns/edit/${campaign.id}`);
   const handleDelete = async () => {
     if (!window.confirm('Видалити цю кампанію назавжди?')) return;
     try {
       await client.delete(`/campaigns/${campaign.id}`);
-      // можна додатково оновити список у батьківському компоненті
       window.location.reload();
     } catch (err) {
       console.error('Помилка видалення кампанії:', err);
@@ -47,9 +45,8 @@ export const CampaignCard: React.FC<CampaignCardProps> = ({ campaign }) => {
       className={`campaign-card ${
         campaign.isClosed ? 'closed' : ''
       } priority-${campaign.priority}`}
-      style={{ position: 'relative' }} // щоб кнопки можна було позиціонувати
+      style={{ position: 'relative' }} 
     >
-      {/* --- Адмінські кнопки --- */}
       {isAdmin && (
         <div className="campaign-card__admin-actions" style={{
           position: 'absolute',

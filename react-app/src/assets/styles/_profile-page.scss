@@ -71,6 +71,10 @@ $spacing: 1rem;
       margin: 8px;
     }
   }
+  &__leave{
+    align-items: end;
+    display: flex;
+  }
   &__edit {
     background: #fff;
     padding: $spacing;
