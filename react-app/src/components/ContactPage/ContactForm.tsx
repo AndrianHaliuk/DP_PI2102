@@ -1,52 +1,98 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useState, useEffect } from 'react';
+import client from '../../api/client';
+
+interface Feedback {
+  id: number;
+  subject: string;
+  message: string;
+  createdAt: string;
+}
 
 const ContactForm: React.FC = () => {
-  const [form, setForm] = useState({ firstName: '', lastName: '', email: '', subject: '', message: '' });
+  const [subject, setSubject] = useState('');
+  const [message, setMessage] = useState('');
+  const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm({ ...form, [e.target.id]: e.target.value });
-  };
+  useEffect(() => {
+    const fetchFeedbacks = async () => {
+      try {
+        const { data } = await client.get<Feedback[]>('/feedback');
+        setFeedbacks(data);
+      } catch (error) {
+        console.error('Не вдалося завантажити відгуки', error);
+      }
+    };
+    fetchFeedbacks();
+  }, []);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', form);
-    // TODO: відправка даних на сервер
-    alert('Повідомлення надіслано!');
-    setForm({ firstName: '', lastName: '', email: '', subject: '', message: '' });
+    if (!subject.trim() || !message.trim()) {
+      alert('Будь ласка, заповніть тему та повідомлення');
+      return;
+    }
+
+    try {
+      const { data: newFeedback } = await client.post<Feedback>('/feedback', {
+        subject,
+        message,
+      });
+      setFeedbacks((prev) => [...prev, newFeedback]);
+      setSubject('');
+      setMessage('');
+      alert('Повідомлення надіслано!');
+    } catch (error) {
+      console.error('Помилка надсилання повідомлення', error);
+      alert('Не вдалося надіслати повідомлення');
+    }
   };
 
   return (
     <section>
       <div className="container">
         <form className="contact-form" onSubmit={handleSubmit}>
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="firstName">Ім'я</label>
-              <input type="text" id="firstName" value={form.firstName} onChange={handleChange} />
-            </div>
-            <div className="form-group">
-              <label htmlFor="lastName">Прізвище</label>
-              <input type="text" id="lastName" value={form.lastName} onChange={handleChange} />
-            </div>
-          </div>
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input type="email" id="contact-email" value={form.email} onChange={handleChange} />
-            </div>
-            <div className="form-group">
-              <label htmlFor="subject">Тема</label>
-              <input type="text" id="subject" value={form.subject} onChange={handleChange} />
-            </div>
+          <div className="form-group">
+            <label htmlFor="subject">Тема</label>
+            <input
+              type="text"
+              id="subject"
+              value={subject}
+              onChange={(e) => setSubject(e.target.value)}
+              required
+            />
           </div>
           <div className="form-group">
             <label htmlFor="message">Повідомлення</label>
-            <textarea id="message" rows={5} placeholder="Напишіть ваше повідомлення" value={form.message} onChange={handleChange} />
+            <textarea
+              id="message"
+              rows={5}
+              placeholder="Напишіть ваше повідомлення"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              required
+            />
           </div>
           <div className="button-wrapper">
-            <button type="submit" className="primary-btn">Надіслати повідомлення</button>
+            <button type="submit" className="primary-btn">
+              Надіслати повідомлення
+            </button>
           </div>
         </form>
+
+        <div className="feedback-list">
+          <h3>Відгуки</h3>
+          {feedbacks.length === 0 ? (
+            <p>Поки що немає відгуків.</p>
+          ) : (
+            feedbacks.map((fb) => (
+              <div key={fb.id} className="feedback-card">
+                <h4>{fb.subject}</h4>
+                <p>{fb.message}</p>
+                <small>{new Date(fb.createdAt).toLocaleString()}</small>
+              </div>
+            ))
+          )}
+        </div>
       </div>
     </section>
   );

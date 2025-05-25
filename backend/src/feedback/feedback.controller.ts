@@ -27,6 +27,7 @@ export class FeedbackController {
     return this.prisma.feedback.create({
       data: {
         userId: user.id,
+        subject: body.subject,
         message: body.message,
       },
     });

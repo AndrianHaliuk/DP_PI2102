@@ -10,6 +10,7 @@ const ANIMATION_DURATION = 300;
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   const [shouldRender, setShouldRender] = useState(isOpen);
+  const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -38,7 +39,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
     e.preventDefault();
 
     try {
-      await client.post('/feedback', { message });
+      await client.post('/feedback', { subject, message });
+      setSubject('');
       setMessage('');
       onClose();
     } catch (error) {
@@ -62,6 +64,16 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
         <h2>Залиште свій відгук</h2>
         <p>Напишіть нам будь-яке повідомлення або питання, ми раді допомогти!</p>
         <form className="contact-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="subject">Тема</label>
+            <input
+              type="text"
+              id="subject"
+              value={subject}
+              onChange={e => setSubject(e.target.value)}
+              required
+            />
+          </div>
           <div className="form-group">
             <label htmlFor="message">Повідомлення</label>
             <textarea
