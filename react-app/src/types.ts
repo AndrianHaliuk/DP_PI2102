@@ -49,3 +49,14 @@ export interface UserProfile {
     phone?: string;
     address?: string;
   }
+
+  export interface Feedback {
+  id: number;
+  subject: string;
+  message: string;
+  createdAt: string;
+  user: {
+    name: string;
+    profile: { avatarUrl: string | null } | null;
+  } | null;
+}

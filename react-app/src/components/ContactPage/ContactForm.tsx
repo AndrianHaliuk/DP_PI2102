@@ -1,11 +1,18 @@
 import React, { FormEvent, useState, useEffect } from 'react';
 import client from '../../api/client';
+import '../../assets/styles/_feedback.scss';
 
 interface Feedback {
   id: number;
   subject: string;
   message: string;
   createdAt: string;
+  user: {
+    name: string;
+    profile: {
+      avatarUrl: string | null;
+    } | null;
+  } | null;
 }
 
 const ContactForm: React.FC = () => {
@@ -37,7 +44,7 @@ const ContactForm: React.FC = () => {
         subject,
         message,
       });
-      setFeedbacks((prev) => [...prev, newFeedback]);
+      setFeedbacks(prev => [newFeedback, ...prev]);
       setSubject('');
       setMessage('');
       alert('Повідомлення надіслано!');
@@ -48,19 +55,21 @@ const ContactForm: React.FC = () => {
   };
 
   return (
-    <section>
+    <section className="contact-section">
       <div className="container">
         <form className="contact-form" onSubmit={handleSubmit}>
+          <h2>Залиште відгук</h2>
           <div className="form-group">
             <label htmlFor="subject">Тема</label>
             <input
               type="text"
               id="subject"
               value={subject}
-              onChange={(e) => setSubject(e.target.value)}
+              onChange={e => setSubject(e.target.value)}
               required
             />
           </div>
+
           <div className="form-group">
             <label htmlFor="message">Повідомлення</label>
             <textarea
@@ -68,10 +77,11 @@ const ContactForm: React.FC = () => {
               rows={5}
               placeholder="Напишіть ваше повідомлення"
               value={message}
-              onChange={(e) => setMessage(e.target.value)}
+              onChange={e => setMessage(e.target.value)}
               required
             />
           </div>
+
           <div className="button-wrapper">
             <button type="submit" className="primary-btn">
               Надіслати повідомлення
@@ -84,11 +94,33 @@ const ContactForm: React.FC = () => {
           {feedbacks.length === 0 ? (
             <p>Поки що немає відгуків.</p>
           ) : (
-            feedbacks.map((fb) => (
+            feedbacks.map(fb => (
               <div key={fb.id} className="feedback-card">
-                <h4>{fb.subject}</h4>
-                <p>{fb.message}</p>
-                <small>{new Date(fb.createdAt).toLocaleString()}</small>
+                <div className="avatar-wrapper">
+                  {fb.user?.profile?.avatarUrl ? (
+                    <img
+                      src={fb.user.profile.avatarUrl}
+                      alt={fb.user.name}
+                      className="avatar-img"
+                    />
+                  ) : (
+                    <div className="avatar-placeholder">
+                      {fb.user?.name?.[0] ?? 'U'}
+                    </div>
+                  )}
+                </div>
+                <div className="feedback-content">
+                  <h4 className="feedback-subject">{fb.subject}</h4>
+                  <p className="feedback-message">{fb.message}</p>
+                  <div className="feedback-meta">
+                    <span className="feedback-author">
+                      {fb.user?.name ?? 'Анонім'}
+                    </span>
+                    <span className="feedback-date">
+                      {new Date(fb.createdAt).toLocaleString()}
+                    </span>
+                  </div>
+                </div>
               </div>
             ))
           )}

@@ -1,4 +1,3 @@
-// src/pages/Contact.tsx
 import React from 'react';
 import Footer from '../components/Footer';
 import ContactHeader from '../components/ContactPage/ContactHeader';

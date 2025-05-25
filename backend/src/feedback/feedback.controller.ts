@@ -4,6 +4,7 @@ import {
   Post,
   Req,
   UnauthorizedException,
+  Get,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { PrismaService } from '../prisma/prisma.service';
@@ -32,4 +33,19 @@ export class FeedbackController {
       },
     });
   }
+
+@Get()
+async getAllFeedback() {
+  return this.prisma.feedback.findMany({
+    orderBy: { createdAt: 'desc' },
+    include: {
+      user: {
+        select: {
+          name: true,
+          profile: { select: { avatarUrl: true } },
+        },
+      },
+    },
+  });
+}
 }
