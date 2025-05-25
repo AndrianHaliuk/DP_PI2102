@@ -31,7 +31,6 @@ const Navbar: React.FC<NavbarProps> = ({ onFeedbackClick }) => {
     });
   };
 
-  // Визначення джерела аватару
   const getAvatarSrc = (avatarUrl?: string): string | undefined => {
     if (!avatarUrl) return undefined;
     if (avatarUrl.startsWith('http') || avatarUrl.startsWith('data:')) return avatarUrl;
@@ -41,19 +40,16 @@ const Navbar: React.FC<NavbarProps> = ({ onFeedbackClick }) => {
   return (
     <nav ref={navRef} className="site-nav" id="navbar" role="navigation">
       <div className="nav-container">
-        {/* Logo */}
         <NavLink to="/" className="logo-link" onClick={() => isMobileMenuOpen && handleBurgerClick()}>
           <img src="/img/logo.webp" alt="Логотип" className="logo" loading="lazy" />
         </NavLink>
 
-        {/* Burger */}
         <div className={`burger ${isMobileMenuOpen ? 'toggle' : ''}`} onClick={handleBurgerClick}>
           <div className="line1" />
           <div className="line2" />
           <div className="line3" />
         </div>
 
-        {/* Links */}
         <ul className={`nav-links ${isMobileMenuOpen ? 'nav-active' : ''}`}>
           {['/', '/about-us', '/what-we-do', '/media', '/contact', 'feedback'].map((path, i) => {
             const label = path === 'feedback' ? 'Відгук'
