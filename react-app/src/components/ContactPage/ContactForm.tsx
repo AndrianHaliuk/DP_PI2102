@@ -107,8 +107,6 @@ const ContactForm: React.FC = () => {
                   )}
                 </div>
                 <div className="feedback-content">
-                  <h4 className="feedback-subject">{fb.subject}</h4>
-                  <p className="feedback-message">{fb.message}</p>
                   <div className="feedback-meta">
                     <span className="feedback-author">
                       {fb.user?.name ?? 'Анонім'}
@@ -117,6 +115,8 @@ const ContactForm: React.FC = () => {
                       {new Date(fb.createdAt).toLocaleString()}
                     </span>
                   </div>
+                  <h4 className="feedback-subject">{fb.subject}</h4>
+                  <p className="feedback-message">{fb.message}</p>
                 </div>
               </div>
             ))
