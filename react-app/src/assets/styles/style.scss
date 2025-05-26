@@ -1677,6 +1677,10 @@ button {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.2); }
 }
+.title-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
 
 @media screen and (min-width: 768px) {
   
