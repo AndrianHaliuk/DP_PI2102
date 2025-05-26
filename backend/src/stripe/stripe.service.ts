@@ -31,17 +31,16 @@ export class StripeService {
       throw new BadRequestException('Amount must be positive');
     }
 
-    // Переконаємося, що користувач дійсно має акаунт у Stripe
+    const SYSTEM_USER_ID = 4;
     const bankAccount = await this.prisma.bankAccount.findFirst({
-      where: { userId, provider: 'Stripe', isDefault: true },
+      where: { userId: SYSTEM_USER_ID, provider: 'Stripe', isDefault: true },
     });
     if (!bankAccount) {
       throw new BadRequestException('No default Stripe account');
     }
 
-    // Створюємо PaymentIntent із усім необхідним у metadata
     const intent = await this.stripe.paymentIntents.create({
-      amount: Math.round(amount * 100), // у копійках
+      amount: Math.round(amount * 100), 
       currency,
       metadata: {
         userId:       String(userId),
