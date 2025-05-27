@@ -26,7 +26,7 @@ const Events: React.FC = () => {
     <section className="our-events-section container">
       <div className="join-image">
         <h2>
-          Ви можете зробити внесок, щоб створити місце для дітей з особливими потребами!
+          Ви можете зробити внесок, щоб підтримати тих, хто цього потребує!
         </h2>
         <div>
           <a href="#" className="primary-btn">Приєднатися як волонтер</a>
@@ -36,11 +36,10 @@ const Events: React.FC = () => {
 
       <div className="events-slider-title-container">
         <div className="events-slider-title">
-          <h2>Актуальні кампанії</h2>
+          <h2>Актуальні кампанії та збори</h2>
           <div className="event-line"></div>
         </div>
       </div>
-
       {campaigns.length > 0 ? (
         <Swiper
           modules={[Autoplay]}

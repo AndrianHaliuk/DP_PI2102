@@ -7,16 +7,16 @@ const SectionAbout = () => {
             <div className="line"></div>
             <span>дізнайтеся про нас</span>
           </div>
-          <h2>Ми надаємо місце для дітей з особливими потребами</h2>
+          <h2>Ми допомагаємо тим, хто потребує підтримки</h2>
           <p>
-            Наша організація створює безпечне та підтримуюче середовище, де діти з інвалідністю можуть навчатися, грати, розвиватися та інтегруватися в суспільство. Ми співпрацюємо з сім’ями, фахівцями та волонтерами, щоб змінити життя дітей на краще.
+            Наша організація займається благодійністю, що охоплює різні сфери життя — від індивідуальної допомоги до підтримки цілих громад. Ми віримо, що добрі справи мають силу змінювати світ. Спільно з волонтерами, партнерами та донорами ми реалізуємо прозорі й ефективні ініціативи, що дійсно приносять результат.
           </p>
           <a className="primary-btn">Дізнатися більше</a>
         </div>
         <div className="video-container">
-          <a href="https://www.youtube.com/watch?v=rkRyetRMrjQ" target="_blank" className="video-facade">
+          <a href="https://youtu.be/wi73RJORyPE" target="_blank" className="video-facade">
             <img
-              src="https://img.youtube.com/vi/rkRyetRMrjQ/hqdefault.jpg"
+              src="https://img.youtube.com/vi/wi73RJORyPE/hqdefault.jpg"
               alt="Відео про нас"
               className="video-thumbnail"
               loading="lazy"
@@ -31,4 +31,4 @@ const SectionAbout = () => {
   );
 };
   
-  export default SectionAbout;
+export default SectionAbout;

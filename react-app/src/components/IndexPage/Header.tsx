@@ -19,9 +19,9 @@ const Header: React.FC = () => {
           </div>
         </div>
         <div className="sub-title">
-          <p>230 дітей під нашою опікою</p>
+          <p>230 донатів</p>
           <div></div>
-          <p>58 зібраних пожертв</p>
+          <p>58 завершених зборів</p>
         </div>
       </div>
     </header>

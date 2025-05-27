@@ -1,4 +1,3 @@
-// src/components/Navbar.tsx
 import React, { useState, useRef, useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useNavbarScroll } from '../hooks/useNavbarScroll';

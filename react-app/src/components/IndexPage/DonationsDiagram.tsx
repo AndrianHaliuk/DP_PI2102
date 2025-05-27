@@ -15,7 +15,7 @@ const DonationsDiagram: React.FC = () => {
         <div className="diagram-section-wrapper">
           <h2>Як ми витрачаємо ваші пожертви та куди вони йдуть</h2>
           <p className="diagram-paragraph">
-            Ми розуміємо, що коли ви робите пожертву, ви хочете знати, куди йдуть ваші гроші, і ми зобов'язуємося бути прозорими.
+            Ми розуміємо, що коли ви робите донат, ви хочете знати, куди йдуть ваші гроші, і ми зобов'язуємося бути прозорими.
           </p>
           <div className="diagram-description">
             {data.map((item, index) => (
