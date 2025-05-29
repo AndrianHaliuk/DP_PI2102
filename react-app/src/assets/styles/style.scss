@@ -189,6 +189,17 @@ header{
   }
 }
 
+.header-img-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
 .title{
   max-width: 380px;
   width: 100%;
@@ -1777,9 +1788,6 @@ button {
     height: 375px;
     margin: 0;
   }
-  .services-container {
-    height: 442px;
-  }
   .section-title h2,
   .section-title p,
   .services-container {
@@ -1926,11 +1934,6 @@ button {
   footer .container a,
   footer .container .footer-lists {
     margin-bottom: 0px;
-  }
-  .section-title {
-    padding: 0;
-    padding-top: 60px;
-    height: auto;
   }
   .about-us-video {
     margin-top: 0;

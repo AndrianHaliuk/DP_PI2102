@@ -21,7 +21,7 @@ export class WebhookController {
   constructor(
     private config: ConfigService,
     private donationsService: DonationsService,
-    private prisma: PrismaService,  // додаємо PrismaService, щоб зробити запит до bankAccount
+    private prisma: PrismaService, 
   ) {
     const key = this.config.get<string>('STRIPE_SECRET_KEY');
     this.stripe = new Stripe(key!, { apiVersion: '2025-04-30.basil' });
@@ -62,7 +62,6 @@ export class WebhookController {
       }
 
       try {
-        // Знайти дефолтний Stripe bankAccount
         const bankAccount = await this.prisma.bankAccount.findFirst({
           where: {
             userId,
@@ -78,7 +77,6 @@ export class WebhookController {
 
         const bankAccountId = bankAccount.id;
 
-        // Знайти або створити донат
         let donation = await this.donationsService.findPendingDonation(userId, campaignId);
 
         if (!donation) {
@@ -91,10 +89,8 @@ export class WebhookController {
           this.logger.log(`Found existing donation #${donation.id}`);
         }
 
-        // Створити транзакцію
         await this.donationsService.createTransactionForDonation(donation.id, intent.id, bankAccountId, amount);
 
-        // Підтвердити донат і оновити кампанію
         await this.donationsService.confirmDonation(donation.id, intent.id);
 
         this.logger.log(`Donation #${donation.id} confirmed for PaymentIntent ${intent.id}`);

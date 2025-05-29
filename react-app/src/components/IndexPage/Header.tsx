@@ -3,6 +3,16 @@ import React from 'react';
 const Header: React.FC = () => {
   return (
     <header role="banner">
+        <div className="header-img-wrapper">
+            <img
+              src="/img/header-back.webp"
+              alt="Hero"
+              width="1280"
+              height="600"
+              fetchPriority="high"
+              loading="eager"
+            />
+        </div>
       <div className="container">
         <div className="title-wrapper">
           <div className="title">

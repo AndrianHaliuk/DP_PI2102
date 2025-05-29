@@ -66,7 +66,6 @@ export class DonationsService {
     return result._sum.amount ?? 0;
   }
 
-  // Нові методи для вебхука
 
   async findPendingDonation(userId: number, campaignId: number) {
     return this.prisma.donation.findFirst({

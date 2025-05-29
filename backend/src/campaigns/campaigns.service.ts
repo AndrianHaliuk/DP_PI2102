@@ -89,7 +89,6 @@ export class CampaignsService {
   async remove(id: number) {
     await this.findOne(id, { excludeDeleted: true });
 
-    // Soft delete — позначаємо як видалену
     return this.prisma.campaign.update({
       where: { id },
       data: { isDeleted: true },
