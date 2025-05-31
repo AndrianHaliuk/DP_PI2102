@@ -10,6 +10,8 @@ const Header: React.FC = () => {
                 <img
                   src="/img/header-back.webp"
                   alt="Hero"
+                  width="1280"
+                  height="600"
                   loading="lazy"
                   decoding="async"
                 />
