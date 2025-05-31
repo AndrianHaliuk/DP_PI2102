@@ -54,9 +54,6 @@ body::-webkit-scrollbar {
     z-index: -2;
   }
 }
-.body{
-  margin-top: 80px;
-}
 .app {
   display: flex;
   flex-direction: column;
@@ -201,6 +198,7 @@ header {
   max-width: 380px;
   width: 100%;
   height: auto;
+  margin-top: 120px;
   h1{
     font-size: 42px;
     padding-right: 10px;
@@ -210,6 +208,7 @@ header {
     margin-bottom: 60px;
   }
 }
+
 .sec-btn{
   background-color: #FFFFFF;
   cursor: pointer;
@@ -1691,6 +1690,9 @@ button {
 }
 
 @media screen and (min-width: 768px) {
+  .about-us-wrapper{
+  margin-top: 80px;
+}
   
   .modal-content h2 {
     font-size: 40px;
@@ -1824,7 +1826,7 @@ button {
     font-size: 18px;
   }
   .sub-title {
-    margin: 260px 0 0 0;
+    margin: 216px 0 0 0;
     padding-left: 0px;
   }
   .title {
