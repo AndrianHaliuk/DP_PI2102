@@ -4,14 +4,18 @@ const Header: React.FC = () => {
   return (
     <header role="banner">
         <div className="header-img-wrapper">
-            <img
-              src="/img/header-back.webp"
-              alt="Hero"
-              width="1280px"
-              height="600px"
-              fetchPriority="high"
-              loading="eager"
-            />
+            <picture>
+                <source srcSet="/img/header-back-mobile.webp" media="(max-width: 767px)" />
+                <source srcSet="/img/header-back.webp" media="(min-width: 768px)" />
+                <img
+                  src="/img/header-back.webp"
+                  alt="Hero"
+                  width="1280"
+                  height="600"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
         </div>
       <div className="container">
         <div className="title-wrapper">

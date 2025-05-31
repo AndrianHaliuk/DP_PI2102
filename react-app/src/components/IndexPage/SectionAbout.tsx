@@ -1,7 +1,7 @@
 const SectionAbout = () => {
   return (
     <section className="container">
-      <div className="section-container">
+      <div className="section-container about-us-wrapper">
         <div className="section-title">
           <div className="line-container">
             <div className="line"></div>
