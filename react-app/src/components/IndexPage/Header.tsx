@@ -7,8 +7,8 @@ const Header: React.FC = () => {
             <img
               src="/img/header-back.webp"
               alt="Hero"
-              width="1280"
-              height="600"
+              width="1280px"
+              height="600px"
               fetchPriority="high"
               loading="eager"
             />
