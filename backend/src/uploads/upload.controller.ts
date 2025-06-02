@@ -14,7 +14,6 @@ import { Request } from 'express';
 export class UploadController {
   constructor(private readonly supabaseStorageService: SupabaseStorageService) {}
 
-  // Завантаження аватарки (як було)
   @Post('avatar')
   @UseInterceptors(FileInterceptor('file'))
   async uploadAvatar(
@@ -26,7 +25,6 @@ export class UploadController {
     return { url };
   }
 
-  // Старий ендпоінт із campaignId (залишити)
   @Post('campaign-image/:campaignId')
   @UseInterceptors(FileInterceptor('file'))
   async uploadCampaignImage(
@@ -41,13 +39,11 @@ export class UploadController {
     return { url };
   }
 
-  // Новий ендпоінт без campaignId для тимчасового завантаження картинки
   @Post('campaign-image')
   @UseInterceptors(FileInterceptor('file'))
   async uploadCampaignImageNoId(
     @UploadedFile() file: Express.Multer.File,
   ) {
-    // Використовуємо фіксований "temp" для шляху зберігання
     const url = await this.supabaseStorageService.uploadCampaignImage(file, 'temp');
     return { url };
   }

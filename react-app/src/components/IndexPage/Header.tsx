@@ -20,7 +20,7 @@ const Header: React.FC = () => {
       <div className="container">
         <div className="title-wrapper">
           <div className="title">
-            <h1>Ми допомагаємо, тим хто цього потребує </h1>
+            <h1>Ми допомагаємо тим, хто цього потребує </h1>
             <div className="title-buttons">
               <a className="sec-btn" href="/what-we-do">Що ми робимо</a>
               <div>

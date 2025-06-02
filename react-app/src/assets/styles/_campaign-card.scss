@@ -203,3 +203,8 @@ $spacing: 16px;
     }
   }
 }
+@media (max-width: 768px) {
+  .campaign-list {
+    grid-template-columns: 1fr;
+  }
+}

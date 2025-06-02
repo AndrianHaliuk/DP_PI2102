@@ -56,7 +56,7 @@ const Navbar: React.FC<NavbarProps> = ({ onFeedbackClick }) => {
               : path === '/about-us' ? 'Про нас'
               : path === '/what-we-do' ? 'Що ми робимо'
               : path === '/media' ? 'Медіа'
-              : 'Контакти';
+              : 'Контакти'
             return (
               <li key={i} ref={(el) => { navLinksRefs.current[i] = el; }}>
                 {path === 'feedback'
@@ -66,11 +66,16 @@ const Navbar: React.FC<NavbarProps> = ({ onFeedbackClick }) => {
               </li>
             );
           })}
+           <li ref={(el) => { navLinksRefs.current[6] = el; }}>
+              <NavLink
+                to="/campaigns"
+                className="nav-btn"
+                onClick={() => isMobileMenuOpen && handleBurgerClick()}
+              >
+                Задонатити
+              </NavLink>
+          </li>
         </ul>
-
-        <NavLink to="/campaigns" className="nav-btn" onClick={() => isMobileMenuOpen && handleBurgerClick()}>
-          Задонатити
-        </NavLink>
 
         {token ? (
           <div className="profile-wrapper">
