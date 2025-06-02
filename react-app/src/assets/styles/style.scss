@@ -130,15 +130,15 @@ body::-webkit-scrollbar {
 }
 .nav-active li {
   opacity: 0;
+  .nav-btn{
+    color: #fff;
+  }
 }
 .nav-links li a{
   color: #525560;
   &:hover{
     color: #0B0706;
   }
-    .nav-btn{
-      color: #fff;
-    }
   }
 
 .nav-btn{
