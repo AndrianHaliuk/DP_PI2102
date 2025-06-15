@@ -1,8 +1,8 @@
 [
   {
-    "name": "Leonard John Davies",
-    "role": "Cofounder, CEO",
-    "photo": "img/Image.webp",
+    "name": "Олена Ковальчук",
+    "role": "Співзасновниця, директорка",
+    "photo": "img/olena.webp",
     "social": {
       "facebook": "#",
       "twitter": "#",
@@ -10,9 +10,9 @@
     }
   },
   {
-    "name": "Francis Weber",
-    "role": "Vice Chairman",
-    "photo": "img/Image-4.webp",
+    "name": "Андрій Мельник",
+    "role": "Заступник директора",
+    "photo": "img/andriy.webp",
     "social": {
       "facebook": "#",
       "twitter": "#",
@@ -20,9 +20,9 @@
     }
   },
   {
-    "name": "Kyla Obrien",
-    "role": "Head of Authority",
-    "photo": "img/Image-3.webp",
+    "name": "Марія Литвин",
+    "role": "Керівниця волонтерського відділу",
+    "photo": "img/maria.webp",
     "social": {
       "facebook": "#",
       "twitter": "#",
@@ -30,9 +30,9 @@
     }
   },
   {
-    "name": "Adrian Dixon",
-    "role": "Support Executive",
-    "photo": "img/Image-6.webp",
+    "name": "Ігор Соловей",
+    "role": "Координатор проєктів",
+    "photo": "img/ihor.webp",
     "social": {
       "facebook": "#",
       "twitter": "#",
@@ -40,9 +40,9 @@
     }
   },
   {
-    "name": "Freddy Busby",
-    "role": "Project Manager",
-    "photo": "img/Image-1.webp",
+    "name": "Наталія Гаврилюк",
+    "role": "Фінансова менеджерка",
+    "photo": "img/natalia.webp",
     "social": {
       "facebook": "#",
       "twitter": "#",
@@ -50,9 +50,9 @@
     }
   },
   {
-    "name": "Dale Banks",
-    "role": "Accountatnt, Finance",
-    "photo": "img/Image-2.webp",
+    "name": "Олександр Бондар",
+    "role": "ІТ-спеціаліст",
+    "photo": "img/oleksandr.webp",
     "social": {
       "facebook": "#",
       "twitter": "#",
@@ -60,9 +60,9 @@
     }
   },
   {
-    "name": "Miriam Middleton",
-    "role": "Cofounder, CEO",
-    "photo": "img/Image-5.webp",
+    "name": "Інна Черненко",
+    "role": "PR-менеджерка",
+    "photo": "img/inna.webp",
     "social": {
       "facebook": "#",
       "twitter": "#",
@@ -70,9 +70,9 @@
     }
   },
   {
-    "name": "Ellen Walton",
-    "role": "Vice Chairman",
-    "photo": "img/Image-7.webp",
+    "name": "Тарас Козак",
+    "role": "Юридичний консультант",
+    "photo": "img/taras.webp",
     "social": {
       "facebook": "#",
       "twitter": "#",

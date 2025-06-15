@@ -11,10 +11,10 @@ const AboutHero: React.FC = () => (
         <h1>Ми є неурядовою організацією</h1>
         <div>
           <p className="about-us-sub-title">
-            Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.
+            Ми об'єднуємо людей заради допомоги тим, хто цього потребує найбільше.
           </p>
           <p className="about-us-sub-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Suspendisse varius enim elementum tristique.
+            Наша команда організовує благодійні збори для підтримки військових, медичних установ, родин внутрішньо переміщених осіб, дітей та літніх людей. Ми працюємо прозоро, регулярно звітуємо про кожен проєкт і прагнемо зробити допомогу ефективною та своєчасною.
           </p>
         </div>
       </div>

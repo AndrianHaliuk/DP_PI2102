@@ -8,15 +8,14 @@ const MediaSection: React.FC = () => {
   return (
     <section className="media-first-section">
       <div className="container">
-        {/* Заголовок */}
         <div className="media-title">
           <div className="line-container">
             <div className="line" />
             <span>Головні новини</span>
           </div>
-          <h1>Наша мета - забезпечити інклюзивний догляд для дітей з особливими потребами</h1>
+          <h1>Наша мета — підтримка тих, хто цього потребує</h1>
           <p>
-            Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.
+            Ми організовуємо збори для різних категорій населення: людей з інвалідністю, постраждалих від війни, малозабезпечених родин, медичних установ та інших.
           </p>
           <a href="#" className="primary-btn">Читати більше</a>
         </div>

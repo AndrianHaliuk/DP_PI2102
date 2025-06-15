@@ -1501,7 +1501,8 @@ button {
 .donate-form 
 { max-width: 400px; 
   margin: 0 auto; 
-  padding: 24px; background: #fff; 
+  padding: 24px; 
+  background: #fff; 
   border-radius: 8px; 
   box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
   margin-top: 80px;
@@ -1513,7 +1514,7 @@ button {
 
 .donate-form__label
  { display: block; 
-  margin-bottom: 4px; font-weight: 500; 
+  margin-bottom: 24px;; font-weight: 500; 
 }
 
 .donate-form__input

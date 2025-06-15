@@ -8,10 +8,10 @@ interface Award {
 }
 
 const awardsData: Award[] = [
-  { year: '2021', name: 'Нагорода "Найкраща НУО"', geo: 'Берлін, Німеччина', iconId: 'Award badge-3' },
-  { year: '2018', name: 'Глобальна нагорода', geo: 'Нью-Йорк, США', iconId: 'Award badge' },
-  { year: '2014', name: 'Нагорода CSN', geo: 'Нью-Делі, Індія', iconId: 'Award badge-1' },
-  { year: '2010', name: 'Нагорода "НУО року"', geo: 'Відень, Австрія', iconId: 'Award badge-2' },
+  { year: '2023', name: 'Відзнака за прозорість у благодійності', geo: 'Київ, Україна', iconId: 'Award badge-3' },
+  { year: '2022', name: 'Премія "Сила Спільноти"', geo: 'Львів, Україна', iconId: 'Award badge' },
+  { year: '2021', name: 'Найкраща волонтерська ініціатива року', geo: 'Дніпро, Україна', iconId: 'Award badge-1' },
+  { year: '2020', name: 'Відзнака за підтримку медичних закладів', geo: 'Харків, Україна', iconId: 'Award badge-2' },
 ];
 
 const Awards: React.FC = () => (

@@ -6,9 +6,9 @@ interface Stat {
 }
 
 const stats: Stat[] = [
-  { value: '34М+', label: 'Отримано пожертв' },
-  { value: '400+', label: 'Волонтерів' },
-  { value: '20+', label: 'Будинків догляду' },
+  { value: '12М+', label: 'Зібрано гривень' },
+  { value: '400+', label: 'Залучено волонтерів' },
+  { value: '20+', label: 'Підтриманих закладів' },
 ];
 
 const Journey: React.FC = () => (
@@ -16,11 +16,10 @@ const Journey: React.FC = () => (
     <div className="container">
       <div className="jorney-wrapper">
         <p className="jorney-sub-title">наш шлях</p>
-        <h2>Як ми зібрали 34М</h2>
+        <h2>Як ми зібрали 12М</h2>
         <p className="about-us-sub-text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros
-          elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut
-          commodo diam libero vitae erat. Aenean faucibus nibh.
+          За роки діяльності ми об’єднали сотні небайдужих людей, провели десятки кампаній і надали
+          допомогу тисячам українців. Наш шлях — це про довіру, прозорість і щоденну роботу задля тих, хто потребує підтримки найбільше.
         </p>
         <div className="jorney-stats">
           {stats.map(({ value, label }) => (

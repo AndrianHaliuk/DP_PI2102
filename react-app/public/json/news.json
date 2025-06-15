@@ -1,20 +1,20 @@
 [
   {
-    "title": "День турботи про дітей з аутизмом",
-    "date": "15th Nov 2022",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim.",
-    "image": "img/autism.webp"
+    "title": "Збір на реабілітацію ветеранів війни",
+    "date": "12 червня 2025",
+    "description": "Розпочато збір коштів на психологічну та фізичну реабілітацію військовослужбовців, які повернулися з фронту.",
+    "image": "img/veterans.webp"
   },
   {
-    "title": "Допомога дітям із синдромом Дауна",
-    "date": "15th Nov 2022",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim.",
-    "image": "img/kid.webp"
+    "title": "Підтримка лікарень у прифронтових зонах",
+    "date": "7 червня 2025",
+    "description": "Передано медичне обладнання та засоби першої допомоги до лікарень, що працюють в екстремальних умовах.",
+    "image": "img/hospital.webp"
   },
   {
-    "title": "Догляд за дітьми з церебральним паралічем",
-    "date": "15th Nov 2022",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim.",
-    "image": "img/celebral.webp"
+    "title": "Гуманітарна допомога постраждалим від підтоплень",
+    "date": "30 травня 2025",
+    "description": "Наші волонтери доставили питну воду, одяг та продукти харчування до постраждалих регіонів після стихійного лиха.",
+    "image": "img/flood.webp"
   }
 ]

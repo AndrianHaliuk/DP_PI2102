@@ -25,19 +25,19 @@ const MissionVision: React.FC = () => (
         <div className="about-us-sec-section-textblok">
           <p className="textblok-title">Наша місія</p>
           <h3>
-            Ми забезпечуємо інклюзивний догляд для дітей з особливими потребами
+            Ми підтримуємо найуразливіші групи: дітей, літніх людей та поранених захисників
           </h3>
           <p className="about-us-sub-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.
+            Ми прагнемо створити умови, де кожна людина в скруті отримає своєчасну допомогу — гуманітарну, медичну чи емоційну. Наша діяльність охоплює збір коштів, забезпечення обладнанням, логістичну підтримку та тісну співпрацю з волонтерами й лікарнями.
           </p>
         </div>
         <div className="about-us-sec-section-textblok">
           <p className="textblok-title">Наша візія</p>
           <h3>
-            Забезпечити більше інклюзивного догляду для дітей по всьому світу
+            Створити мережу швидкої підтримки, яка охоплює всю Україну
           </h3>
           <p className="about-us-sub-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.
+            Ми віримо у силу об’єднання та прозорої благодійності. Наша ціль — щоб у кожному місті та селі була можливість оперативно реагувати на потреби, не залежно від того, чи це евакуація, закупівля ліків, чи допомога постраждалим під час воєнних подій.
           </p>
         </div>
       </div>
