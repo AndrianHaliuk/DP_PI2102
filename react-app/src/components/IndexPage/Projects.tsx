@@ -30,7 +30,7 @@ const Projects: React.FC = () => {
               <div className="project-wrapper">
                 <h3>{project.title}</h3>
                 <p>{project.description}</p>
-                <a href="#" className="sec-btn">Дізнатися більше</a>
+                <a href="/about-us" className="sec-btn">Дізнатися більше</a>
               </div>
             </div>
           ))}

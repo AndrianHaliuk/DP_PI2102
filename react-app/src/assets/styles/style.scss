@@ -1255,9 +1255,14 @@ footer .container{
   margin-top: 32px;
 }
 
+.nav-links .nav-btn.active {
+  color: white;
+}
+
 .nav-links a.active {
   color: #0B0706;
 }
+
 .contact-subtitle{
   font-weight: 700;
   font-size: 24px;
