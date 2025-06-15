@@ -112,7 +112,7 @@ body::-webkit-scrollbar {
   position: absolute;
   top: 9vh;
   right: 0;
-  width: 40%;
+  width: 70%;
   height: 92vh;
   border-radius: 20px 0 20px 20px;
   background-color: #FFFFFF;
@@ -123,6 +123,9 @@ body::-webkit-scrollbar {
 
   li{
     padding-right: 8px;
+  }
+  .nav-btn{
+    color: white;
   }
 }
 .nav-active {
