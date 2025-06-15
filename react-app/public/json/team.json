@@ -1,8 +1,8 @@
 [
   {
-    "name": "Олена Ковальчук",
-    "role": "Співзасновниця, директорка",
-    "photo": "img/olena.webp",
+    "name": "Леонід Давиденко",
+    "role": "Співзасновник, директор",
+    "photo": "img/Image.webp",
     "social": {
       "facebook": "#",
       "twitter": "#",
@@ -10,9 +10,9 @@
     }
   },
   {
-    "name": "Андрій Мельник",
+    "name": "Франциско Вебер",
     "role": "Заступник директора",
-    "photo": "img/andriy.webp",
+    "photo": "img/Image-4.webp",
     "social": {
       "facebook": "#",
       "twitter": "#",
@@ -20,9 +20,9 @@
     }
   },
   {
-    "name": "Марія Литвин",
-    "role": "Керівниця волонтерського відділу",
-    "photo": "img/maria.webp",
+    "name": "Калина Обрієн",
+    "role": "Керівниця відділу",
+    "photo": "img/Image-3.webp",
     "social": {
       "facebook": "#",
       "twitter": "#",
@@ -30,9 +30,9 @@
     }
   },
   {
-    "name": "Ігор Соловей",
-    "role": "Координатор проєктів",
-    "photo": "img/ihor.webp",
+    "name": "Андрій Диксон",
+    "role": "Фахівець з підтримки",
+    "photo": "img/Image-6.webp",
     "social": {
       "facebook": "#",
       "twitter": "#",
@@ -40,9 +40,9 @@
     }
   },
   {
-    "name": "Наталія Гаврилюк",
-    "role": "Фінансова менеджерка",
-    "photo": "img/natalia.webp",
+    "name": "Федір Буслаєв",
+    "role": "Керівник проєктів",
+    "photo": "img/Image-1.webp",
     "social": {
       "facebook": "#",
       "twitter": "#",
@@ -50,9 +50,9 @@
     }
   },
   {
-    "name": "Олександр Бондар",
-    "role": "ІТ-спеціаліст",
-    "photo": "img/oleksandr.webp",
+    "name": "Данило Банко",
+    "role": "Фінансовий аналітик",
+    "photo": "img/Image-2.webp",
     "social": {
       "facebook": "#",
       "twitter": "#",
@@ -60,9 +60,9 @@
     }
   },
   {
-    "name": "Інна Черненко",
-    "role": "PR-менеджерка",
-    "photo": "img/inna.webp",
+    "name": "Марія Мідлтон",
+    "role": "Співзасновниця, директорка",
+    "photo": "img/Image-5.webp",
     "social": {
       "facebook": "#",
       "twitter": "#",
@@ -70,9 +70,9 @@
     }
   },
   {
-    "name": "Тарас Козак",
-    "role": "Юридичний консультант",
-    "photo": "img/taras.webp",
+    "name": "Олена Волтон",
+    "role": "Заступниця директора",
+    "photo": "img/Image-7.webp",
     "social": {
       "facebook": "#",
       "twitter": "#",
