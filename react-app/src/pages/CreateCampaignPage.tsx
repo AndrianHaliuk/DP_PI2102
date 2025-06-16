@@ -34,7 +34,6 @@ const CreateCampaignPage: React.FC = () => {
     data.append('file', file);
 
     try {
-      // Виклик нового ендпоінту без campaignId
       const res = await client.post('/upload/campaign-image', data, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
@@ -57,7 +56,7 @@ const CreateCampaignPage: React.FC = () => {
         description,
         goalAmount,
         priority,
-        imageUrl, // Передаємо url завантаженої картинки в кампанію
+        imageUrl, 
       });
       navigate('/campaigns');
     } catch (err) {

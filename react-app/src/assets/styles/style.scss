@@ -520,6 +520,7 @@ background-image: url("../img/join-back3.webp");
   flex-wrap: wrap;
   color: #FFFFFF;
   gap: 40px;
+  max-width: 800px;
 }
 
 .diagram-description-child{
@@ -1527,7 +1528,9 @@ button {
 { width: 100%; 
   margin-top: 12px; 
 }
-
+.diagram-description-child{
+  color:white;
+}
 
 .create-campaign-form input,
 .create-campaign-form textarea {
