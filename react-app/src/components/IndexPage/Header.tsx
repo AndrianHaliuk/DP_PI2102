@@ -27,7 +27,7 @@ const Header: React.FC = () => {
                 <svg className="playicon">
                   <use xlinkHref="/img/sprite.svg#Play icon"></use>
                 </svg>
-                <a className="video-btn" href="https://www.youtube.com/watch?v=rkRyetRMrjQ">Переглянути відео</a>
+                <a className="video-btn" href="https://youtu.be/erk75UIANe4">Переглянути відео</a>
               </div>
             </div>
           </div>

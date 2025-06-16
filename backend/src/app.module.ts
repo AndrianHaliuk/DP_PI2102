@@ -14,6 +14,7 @@ import { AppService } from './app.service';
 import { UploadController } from './uploads/upload.controller';
 import { UploadsModule } from './uploads/uploads.module';
 import { FeedbackModule } from './feedback/feedback.module';
+import { StatisticsModule } from './stats/stats.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { FeedbackModule } from './feedback/feedback.module';
     UserProfileModule,
     StripeModule,
     PaymentsModule,
+    StatisticsModule,
   ],
   controllers: [
     AppController,

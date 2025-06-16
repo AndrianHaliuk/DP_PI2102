@@ -14,9 +14,9 @@ const SectionAbout = () => {
           <a href="/about-us" className="primary-btn">Дізнатися більше</a>
         </div>
         <div className="video-container">
-          <a href="https://youtu.be/CiFoHm7HD94" target="_blank" className="video-facade">
+          <a href="https://youtu.be/erk75UIANe4" target="_blank" className="video-facade">
             <img
-              src="https://img.youtube.com/vi/CiFoHm7HD94/hqdefault.jpg"
+              src="https://img.youtube.com/vi/erk75UIANe4/hqdefault.jpg"
               alt="Відео про нас"
               className="video-thumbnail"
               loading="lazy"
