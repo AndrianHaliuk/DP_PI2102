@@ -7,7 +7,7 @@ const Header: React.FC = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const response = await client.get('/api/statistics');
+        const response = await client.get('/statistics');
         setStats(response.data);
       } catch (error) {
         console.error('Не вдалося завантажити статистику', error);

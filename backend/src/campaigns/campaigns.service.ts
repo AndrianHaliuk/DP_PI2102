@@ -1,10 +1,16 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateCampaignDto } from './dto/create-campaign.dto';
+import { NewsletterService } from '../newsletter/newsletter.service';
+import { EmailService } from '../newsletter/email.service';
 
 @Injectable()
 export class CampaignsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly newsletterService: NewsletterService,
+    private readonly emailService: EmailService,
+  ) {}
 
   async findAll(options?: { excludeDeleted?: boolean }) {
     const where = options?.excludeDeleted ? { isDeleted: false } : {};
@@ -16,13 +22,9 @@ export class CampaignsService {
           where: { isAnonymous: false },
           orderBy: { amount: 'desc' },
           take: 3,
-          include: {
-            user: {
-              select: { name: true }
-            }
-          }
-        }
-      }
+          include: { user: { select: { name: true } } },
+        },
+      },
     });
 
     return campaigns.map(c => ({
@@ -30,8 +32,8 @@ export class CampaignsService {
       isClosed: c.currentAmount >= c.goalAmount,
       topDonors: c.donations.map(d => ({
         name: d.user?.name ?? 'Анонім',
-        amount: d.amount
-      }))
+        amount: d.amount,
+      })),
     }));
   }
 
@@ -44,31 +46,23 @@ export class CampaignsService {
           where: { isAnonymous: false },
           orderBy: { amount: 'desc' },
           take: 3,
-          include: {
-            user: {
-              select: { name: true }
-            }
-          }
-        }
-      }
+          include: { user: { select: { name: true } } },
+        },
+      },
     });
-
-    if (!campaign) {
-      throw new NotFoundException('Campaign not found');
-    }
-
+    if (!campaign) throw new NotFoundException('Campaign not found');
     return {
       ...campaign,
       isClosed: campaign.currentAmount >= campaign.goalAmount,
       topDonors: campaign.donations.map(d => ({
         name: d.user?.name ?? 'Анонім',
-        amount: d.amount
-      }))
+        amount: d.amount,
+      })),
     };
   }
 
   async create(dto: CreateCampaignDto, userId: number) {
-    return this.prisma.campaign.create({
+    const campaign = await this.prisma.campaign.create({
       data: {
         title: dto.title,
         description: dto.description,
@@ -79,16 +73,46 @@ export class CampaignsService {
         isDeleted: false,
       },
     });
+
+    if (campaign.priority === 1) {
+      const emails = await this.newsletterService.getAllEmails();
+      if (emails.length) {
+        await this.emailService.sendUrgentCampaignNotification(
+          emails,
+          campaign.title,
+          campaign.id,
+        );
+      }
+    }
+
+    return campaign;
   }
 
   async update(id: number, dto: CreateCampaignDto) {
-    await this.findOne(id, { excludeDeleted: true });
-    return this.prisma.campaign.update({ where: { id }, data: dto });
+    const existing = await this.findOne(id, { excludeDeleted: true });
+    const wasUrgent = existing.priority === 1;
+
+    const campaign = await this.prisma.campaign.update({
+      where: { id },
+      data: dto,
+    });
+
+    if (campaign.priority === 1 && !wasUrgent) {
+      const emails = await this.newsletterService.getAllEmails();
+      if (emails.length) {
+        await this.emailService.sendUrgentCampaignNotification(
+          emails,
+          campaign.title,
+          campaign.id,
+        );
+      }
+    }
+
+    return campaign;
   }
 
   async remove(id: number) {
     await this.findOne(id, { excludeDeleted: true });
-
     return this.prisma.campaign.update({
       where: { id },
       data: { isDeleted: true },

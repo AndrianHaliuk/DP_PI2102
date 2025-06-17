@@ -15,6 +15,7 @@ import { UploadController } from './uploads/upload.controller';
 import { UploadsModule } from './uploads/uploads.module';
 import { FeedbackModule } from './feedback/feedback.module';
 import { StatisticsModule } from './statistics/stats.module';
+import { NewsletterModule } from './newsletter/newsletter.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { StatisticsModule } from './statistics/stats.module';
     StripeModule,
     PaymentsModule,
     StatisticsModule,
+    NewsletterModule,
   ],
   controllers: [
     AppController,

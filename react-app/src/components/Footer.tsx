@@ -1,6 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
+import client from '../api/client';
 
 const Footer: React.FC = () => {
+  const [email, setEmail] = useState('');
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSuccess(false);
+    setError(null);
+
+    try {
+      await client.post('/newsletter/subscribe', { email });
+      setSuccess(true);
+      setEmail('');
+    } catch (err: any) {
+      console.error(err);
+      setError('Не вдалося підписатися. Спробуйте пізніше.');
+    }
+  };
+
   return (
     <footer role="contentinfo">
       <div className="container">
@@ -39,15 +59,22 @@ const Footer: React.FC = () => {
             </ul>
           </div>
         </div>
-
-        <div className="subscribe">
-          <h2>Підпишіться, щоб отримувати останні оновлення</h2>
-          <form onSubmit={(e) => e.preventDefault()}>
-            <input type="email" placeholder="Ваш email" id="email" required />
-            <button type="submit" className="sec-btn">Підписатися</button>
-          </form>
-        </div>
+      <div className="subscribe">
+        <h2>Підпишіться, щоб отримувати останні оновлення</h2>
+        <form onSubmit={handleSubscribe}>
+          <input
+            type="email"
+            placeholder="Ваш email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <button type="submit" className="sec-btn">Підписатися</button>
+        </form>
+        {success && <p style={{ color: 'green' }}>Дякуємо за підписку!</p>}
+        {error && <p style={{ color: 'red' }}>{error}</p>}
       </div>
+    </div>
     </footer>
   );
 };
