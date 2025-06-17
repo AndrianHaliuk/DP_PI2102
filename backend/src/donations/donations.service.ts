@@ -36,16 +36,22 @@ export class DonationsService {
     data: { status: 'succeeded' },
   });
 
+  const newCurrentAmount = donation.campaign.currentAmount + donation.amount;
+  const isClosed = newCurrentAmount >= donation.campaign.goalAmount;
+
+  await this.prisma.campaign.update({
+    where: { id: donation.campaignId },
+    data: {
+      currentAmount: newCurrentAmount,
+      isClosed,
+    },
+  });
+
   await this.prisma.donation.update({
     where: { id: donation.id },
     data: {
       status: 'confirmed',
     },
-  });
-
-  await this.prisma.campaign.update({
-    where: { id: donation.campaignId },
-    data: { currentAmount: { increment: donation.amount } },
   });
 }
 
