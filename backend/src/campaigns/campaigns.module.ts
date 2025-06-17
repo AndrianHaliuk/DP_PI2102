@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
 import { CampaignsService } from './campaigns.service';
 import { CampaignsController } from './campaigns.controller';
-import { PrismaModule } from '../prisma/prisma.module';
-import { PassportModule } from '@nestjs/passport';
+import { PrismaService } from '../prisma/prisma.service';
+import { EmailService } from '../newsletter/email.service';
+import { NewsletterModule } from '../newsletter/newsletter.module';
 
 @Module({
-  imports: [PrismaModule, PassportModule],
-  providers: [CampaignsService],
   controllers: [CampaignsController],
+  providers: [CampaignsService, PrismaService, EmailService],
+  imports: [NewsletterModule], 
 })
 export class CampaignsModule {}
