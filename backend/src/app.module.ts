@@ -14,7 +14,7 @@ import { AppService } from './app.service';
 import { UploadController } from './uploads/upload.controller';
 import { UploadsModule } from './uploads/uploads.module';
 import { FeedbackModule } from './feedback/feedback.module';
-import { StatisticsModule } from './stats/stats.module';
+import { StatisticsModule } from './statistics/stats.module';
 
 @Module({
   imports: [

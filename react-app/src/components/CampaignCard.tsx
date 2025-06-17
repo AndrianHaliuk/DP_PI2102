@@ -11,7 +11,7 @@ interface CampaignCardProps {
     isClosed: boolean;
     topDonors?: { name: string; amount: number }[];
   };
-  onDeleted?: (id: number) => void;  // новий проп
+  onDeleted?: (id: number) => void; 
 }
 
 export const CampaignCard: React.FC<CampaignCardProps> = ({ campaign, onDeleted }) => {
@@ -35,7 +35,7 @@ export const CampaignCard: React.FC<CampaignCardProps> = ({ campaign, onDeleted 
     if (!window.confirm('Видалити цю кампанію назавжди?')) return;
     try {
       await client.delete(`/campaigns/${campaign.id}`);
-      if (onDeleted) onDeleted(campaign.id);  // повідомляємо батька
+      if (onDeleted) onDeleted(campaign.id); 
     } catch (err) {
       console.error('Помилка видалення кампанії:', err);
     }
