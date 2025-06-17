@@ -77,11 +77,12 @@ export class CampaignsService {
     if (campaign.priority === 1) {
       const emails = await this.newsletterService.getAllEmails();
       if (emails.length) {
-        await this.emailService.sendUrgentCampaignNotification(
-          emails,
-          campaign.title,
-          campaign.id,
-        );
+       await this.emailService.sendUrgentCampaignNotification(
+            emails,
+            campaign.title,
+            campaign.goalAmount,
+            campaign.id,
+          );
       }
     }
 
@@ -101,9 +102,10 @@ export class CampaignsService {
       const emails = await this.newsletterService.getAllEmails();
       if (emails.length) {
         await this.emailService.sendUrgentCampaignNotification(
-          emails,
-          campaign.title,
-          campaign.id,
+            emails,
+            campaign.title,
+            campaign.goalAmount,
+            campaign.id,
         );
       }
     }
