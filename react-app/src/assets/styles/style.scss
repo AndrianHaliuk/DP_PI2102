@@ -518,7 +518,6 @@ background-image: url("../img/join-back3.webp");
 .diagram-description{
   display: flex;
   flex-wrap: wrap;
-  color: #FFFFFF;
   gap: 40px;
   max-width: 800px;
 }
@@ -527,6 +526,10 @@ background-image: url("../img/join-back3.webp");
   display: flex;
   gap: 10px;
   min-width: 172px;
+
+  p{
+    color: white;
+  }
 }
 
 .color-container{
@@ -1527,9 +1530,6 @@ button {
 .donate-form__button 
 { width: 100%; 
   margin-top: 12px; 
-}
-.diagram-description-child{
-  color:white;
 }
 
 .create-campaign-form input,
