@@ -64,6 +64,7 @@ const Footer: React.FC = () => {
         <form onSubmit={handleSubscribe}>
           <input
             type="email"
+            id="email"
             placeholder="Ваш email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
