@@ -23,24 +23,31 @@ export class DonationsService {
   }
 
   async confirmDonation(donationId: number, stripeTxId: string): Promise<void> {
-    const donation = await this.prisma.donation.findUnique({
-      where: { id: donationId },
-      include: { campaign: true },
-    });
+  const donation = await this.prisma.donation.findUnique({
+    where: { id: donationId },
+    include: { campaign: true },
+  });
 
-    if (!donation) throw new NotFoundException('Donation not found');
-    if (!donation.campaign) throw new NotFoundException('Campaign not found');
+  if (!donation) throw new NotFoundException('Donation not found');
+  if (!donation.campaign) throw new NotFoundException('Campaign not found');
 
-    await this.prisma.transaction.updateMany({
-      where: { providerTxId: stripeTxId },
-      data: { status: 'succeeded' },
-    });
+  await this.prisma.transaction.updateMany({
+    where: { providerTxId: stripeTxId },
+    data: { status: 'succeeded' },
+  });
 
-    await this.prisma.campaign.update({
-      where: { id: donation.campaignId },
-      data: { currentAmount: { increment: donation.amount } },
-    });
-  }
+  await this.prisma.donation.update({
+    where: { id: donation.id },
+    data: {
+      status: 'confirmed',
+    },
+  });
+
+  await this.prisma.campaign.update({
+    where: { id: donation.campaignId },
+    data: { currentAmount: { increment: donation.amount } },
+  });
+}
 
   async findAllByUser(userId: number) {
     return this.prisma.donation.findMany({
