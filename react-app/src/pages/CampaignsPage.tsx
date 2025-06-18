@@ -6,7 +6,6 @@ const CampaignsPage: React.FC = () => {
   return (
     <div className="app">
       <main className="container main-content">
-        <h1>Список кампаній</h1>
         <CampaignList />
       </main>
       <Footer />

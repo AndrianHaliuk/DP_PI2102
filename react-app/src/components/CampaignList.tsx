@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useCampaigns } from '../hooks/useCampaigns';
 import { CampaignCard } from './CampaignCard';
 import { Campaign } from '../types';
+import Grid from '@mui/material/Grid';
 import { Tabs, Tab, Box, Typography } from '@mui/material';
 
 interface CampaignListProps {
@@ -35,20 +36,26 @@ export const CampaignList: React.FC<CampaignListProps> = ({
 
   if (isLoading) return <div>Loading campaigns...</div>;
   if (error) return <div>Error: {error.message}</div>;
-  if (!campaigns || campaigns.length === 0) return <div>No campaigns yet.</div>;
+  if (!campaigns.length) return <div>No campaigns yet.</div>;
 
   const active = campaigns.filter((c) => !c.isClosed);
   const closed = campaigns.filter((c) => c.isClosed);
 
   const renderList = (list: Campaign[]) =>
     list.length ? (
-      list.map((c) => (
-        <CampaignCard
-          key={c.id}
-          campaign={c}
-          onDeleted={handleCampaignDeleted}
-        />
-      ))
+      <Grid container spacing={2}>
+        {list.map((c) => (
+          <Grid
+            size={{ xs: 12, sm: 6 }}
+            key={c.id}
+          >
+            <CampaignCard
+              campaign={c}
+              onDeleted={handleCampaignDeleted}
+            />
+          </Grid>
+        ))}
+      </Grid>
     ) : (
       <Typography variant="body1" sx={{ p: 2 }}>
         Немає кампаній у цьому розділі.
@@ -57,10 +64,35 @@ export const CampaignList: React.FC<CampaignListProps> = ({
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Tabs value={tabIndex} onChange={handleTabChange} centered>
-        <Tab label="Активні збори" />
-        <Tab label="Завершені збори" />
-      </Tabs>
+        <Tabs
+          value={tabIndex}
+          onChange={handleTabChange}
+          centered
+          TabIndicatorProps={{ style: { backgroundColor: '#ffbf00' } }} 
+          sx={{ mt: '128px' }} 
+        >
+          <Tab
+            label="Активні збори"
+            sx={{
+              '&.Mui-selected': {
+                color: '#000',    
+                fontWeight: '600',
+              },
+              color: '#888',     
+            }}
+          />
+          <Tab
+            label="Завершені збори"
+            sx={{
+              '&.Mui-selected': {
+                color: '#000',
+                fontWeight: '600',
+              },
+              color: '#888',
+            }}
+          />
+        </Tabs>
+
 
       <Box sx={{ mt: 3, display: tabIndex === 0 ? 'block' : 'none' }}>
         {renderList(active)}
