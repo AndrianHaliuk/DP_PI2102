@@ -29,7 +29,6 @@ const Events: React.FC = () => {
           Ви можете зробити внесок, щоб підтримати тих, хто цього потребує!
         </h2>
         <div>
-          <a href="/campaigns" className="primary-btn">Приєднатися як волонтер</a>
           <a href="/campaigns" className="sec-btn">Задонатити</a>
         </div>
       </div>

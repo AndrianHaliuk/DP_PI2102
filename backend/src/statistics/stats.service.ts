@@ -6,17 +6,25 @@ export class StatisticsService {
   constructor(private readonly prisma: PrismaService) {}
 
   async getStatistics() {
-    const donationsCount = await this.prisma.donation.count({
-      where: { status: 'confirmed', isDeleted: false },
-    });
+    const [donationsCount, completedCollections, totalAmountResult] = await Promise.all([
+      this.prisma.donation.count({
+        where: { status: 'confirmed', isDeleted: false },
+      }),
+      this.prisma.campaign.count({
+        where: { isClosed: true, isDeleted: false },
+      }),
+      this.prisma.donation.aggregate({
+        where: { status: 'confirmed', isDeleted: false },
+        _sum: { amount: true },
+      }),
+    ]);
 
-    const completedCollections = await this.prisma.campaign.count({
-      where: { isClosed: true, isDeleted: false },
-    });
+    const totalAmount = totalAmountResult._sum.amount || 0;
 
     return {
       donationsCount,
       completedCollections,
+      totalAmount,
     };
   }
 }

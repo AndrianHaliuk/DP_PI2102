@@ -81,12 +81,6 @@ export class EmailService {
         font-weight: bold;
         margin-top: 25px;
       }
-      .footer {
-        font-size: 12px;
-        color: #777;
-        margin-top: 30px;
-        text-align: center;
-      }
     </style>
   </head>
   <body>
@@ -98,9 +92,6 @@ export class EmailService {
       <a href="${link}" class="button">Підтримати зараз</a>
       <p>Дякуємо за вашу небайдужість і підтримку!</p>
       <p>З повагою,<br/>Команда Благодійної Організації</p>
-      <div class="footer">
-        Якщо ви більше не хочете отримувати наші листи, будь ласка, <a href="${process.env.FRONTEND_URL}/unsubscribe">відпишіться тут</a>.
-      </div>
     </div>
   </body>
   </html>

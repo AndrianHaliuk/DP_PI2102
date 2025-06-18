@@ -1,4 +1,3 @@
-// src/components/MediaPage/MediaSection.tsx
 import React from 'react';
 import { useNews, NewsItem } from '../../hooks/useNews';
 

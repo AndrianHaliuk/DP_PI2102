@@ -50,12 +50,11 @@ const Navbar: React.FC<NavbarProps> = ({ onFeedbackClick }) => {
         </div>
 
         <ul className={`nav-links ${isMobileMenuOpen ? 'nav-active' : ''}`}>
-          {['/', '/about-us', '/what-we-do', '/media', '/contact', 'feedback'].map((path, i) => {
+          {['/', '/about-us', '/what-we-do', '/contact', 'feedback'].map((path, i) => {
             const label = path === 'feedback' ? 'Відгук'
               : path === '/' ? 'Головна'
               : path === '/about-us' ? 'Про нас'
               : path === '/what-we-do' ? 'Що ми робимо'
-              : path === '/media' ? 'Медіа'
               : 'Контакти'
             return (
               <li key={i} ref={(el) => { navLinksRefs.current[i] = el; }}>
