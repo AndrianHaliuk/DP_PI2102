@@ -9,11 +9,13 @@ import {
 import { Request } from 'express';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateFeedbackDto } from './dto/create-feedback.dto';
+import { Public } from '../auth/public.decorator';
 
 @Controller('feedback')
 export class FeedbackController {
   constructor(private prisma: PrismaService) {}
 
+  @Public()
   @Post()
   async createFeedback(
     @Req() req: Request,
