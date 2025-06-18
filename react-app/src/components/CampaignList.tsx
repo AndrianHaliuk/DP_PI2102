@@ -68,33 +68,36 @@ export const CampaignList: React.FC<CampaignListProps> = ({
           value={tabIndex}
           onChange={handleTabChange}
           centered
-          TabIndicatorProps={{ style: { backgroundColor: '#ffbf00' } }} 
-          sx={{ mt: '128px' }} 
+          sx={{
+            mt: '96px',
+            '& .MuiTabs-indicator': {
+              backgroundColor: '#ffbf00',              
+            },
+          }}
         >
           <Tab
             label="Активні збори"
             sx={{
+              color: '#888',      
               '&.Mui-selected': {
                 color: '#000',    
                 fontWeight: '600',
               },
-              color: '#888',     
             }}
           />
           <Tab
             label="Завершені збори"
             sx={{
+              color: '#888',
               '&.Mui-selected': {
                 color: '#000',
                 fontWeight: '600',
               },
-              color: '#888',
             }}
           />
         </Tabs>
 
-
-      <Box sx={{ mt: 3, display: tabIndex === 0 ? 'block' : 'none' }}>
+      <Box sx={{ mt: 3, mb: '24px',display: tabIndex === 0 ? 'block' : 'none' }}>
         {renderList(active)}
       </Box>
       <Box sx={{ mt: 3, display: tabIndex === 1 ? 'block' : 'none' }}>
