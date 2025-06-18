@@ -82,7 +82,7 @@ export const DonateForm: React.FC<{ campaignId: number }> = ({ campaignId }) => 
     <>
       <form onSubmit={handleSubmit} className="donate-form">
         <div className="donate-form__field">
-          <label className="donate-form__label">Сума пожертви</label>
+          <label className="donate-form__label">Сума донату</label>
           <input
             type="number"
             className="donate-form__input"
@@ -94,8 +94,8 @@ export const DonateForm: React.FC<{ campaignId: number }> = ({ campaignId }) => 
         </div>
         <div className="donate-form__field">
           <label className="donate-form__label">
-            <input type="checkbox" checked={anon} onChange={() => setAnon(!anon)} />
-            Пожертвувати анонімно
+            <input id="anon-checkbox" type="checkbox" checked={anon} onChange={() => setAnon(!anon)} />
+            Задонатити анонімно
           </label>
         </div>
         <div className="donate-form__field">
@@ -108,7 +108,7 @@ export const DonateForm: React.FC<{ campaignId: number }> = ({ campaignId }) => 
           className="primary-btn donate-form__button"
           disabled={isProcessing || !stripe || !elements}
         >
-          {isProcessing ? 'Обробка...' : 'Надіслати пожертву'}
+          {isProcessing ? 'Обробка...' : 'Надіслати кошти'}
         </button>
       </form>
 

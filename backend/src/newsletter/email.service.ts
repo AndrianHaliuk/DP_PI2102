@@ -16,7 +16,7 @@ export class EmailService {
 
   async sendMail(to: string[] | string, subject: string, html: string) {
     const options = {
-      from: `"Ваша організація" <${process.env.MAIL_USER}>`,
+      from: `"Ваша організація" <${process.env.MAIL_FROM}>`,
       to,
       subject,
       html,
