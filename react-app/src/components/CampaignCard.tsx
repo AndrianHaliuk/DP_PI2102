@@ -59,10 +59,28 @@ export const CampaignCard: React.FC<CampaignCardProps> = ({ campaign, onDeleted 
             gap: '4px',
           }}
         >
-          <button onClick={handleEdit} title="Редагувати" className="icon-btn">
+          <button
+            onClick={handleEdit}
+            title="Редагувати"
+            className="icon-btn"
+            style={{
+              filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.8))',
+              backgroundColor: 'rgba(255,255,255,0.1)', 
+              borderRadius: '4px',     
+            }}
+          >
             <FiSettings size={18} />
           </button>
-          <button onClick={handleDelete} title="Видалити" className="icon-btn">
+          <button
+            onClick={handleDelete}
+            title="Видалити"
+            className="icon-btn"
+            style={{
+              filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.8))',
+              backgroundColor: 'rgba(255,255,255,0.1)',
+              borderRadius: '4px',
+            }}
+          >
             <FiTrash2 size={18} />
           </button>
         </div>

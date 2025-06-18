@@ -33,7 +33,7 @@ export const Journey: React.FC = () => {
           <h2>
             {loading
               ? 'Завантаження…'
-              : `Як ми зібрали ${(stats!.totalAmount / 1_000_000).toFixed(1)}М`}
+              : `Як ми зібрали ${(stats!.totalAmount / 1_000).toFixed(1)} тисяч`}
           </h2>
           <p className="about-us-sub-text">
             За роки діяльності ми об’єднали сотні небайдужих людей, провели десятки кампаній і надали
