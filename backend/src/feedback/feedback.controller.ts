@@ -36,6 +36,7 @@ export class FeedbackController {
     });
   }
 
+@Public()
 @Get()
 async getAllFeedback() {
   return this.prisma.feedback.findMany({
